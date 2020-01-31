@@ -69,6 +69,7 @@ crashlytics-build.properties
 /[Aa]ssets/Master Bank.strings.bytes.meta
 /[Aa]ssets/SFX.bytes
 /[Aa]ssets/SFX.bytes.meta
+/[Aa]ssets/Plugins/FMOD.meta
 
 /[Aa]ssets/Plugins/FMOD/Resources/FMODStudioCache.asset
 /[Aa]ssets/Resources/FMODStudioSettings.asset
