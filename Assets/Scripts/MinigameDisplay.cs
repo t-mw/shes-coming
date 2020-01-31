@@ -5,21 +5,19 @@ using UnityEngine;
 public class MinigameDisplay : MonoBehaviour
 {
     public GameObject TargetCanvas;
-    public GameObject DotPrefab;
+    public GameObject DotCirclePrefab;
+    public GameObject DotTextPrefab;
 
-    public int Count
+    public List<KeyCode> KeyCodes
     {
-        get => _count;
+        get => _keyCodes;
         set
         {
-            if (_count != value)
-            {
-                regenerate = true;
-            }
-            _count = value;
+            regenerate = true;
+            _keyCodes = value;
         }
     }
-    private int _count = 5;
+    private List<KeyCode> _keyCodes = new List<KeyCode>();
 
     public int CompletedCount
     {
@@ -34,6 +32,8 @@ public class MinigameDisplay : MonoBehaviour
         }
     }
     private int _completedCount = 3;
+
+    public int? FailedIndex = null;
 
     private bool regenerate = true;
 
@@ -63,22 +63,43 @@ public class MinigameDisplay : MonoBehaviour
         }
         this.dotObjects.Clear();
 
-        for (var i = 0; i < this.Count; i++)
+        for (var i = 0; i < this.KeyCodes.Count; i++)
         {
-            var dot = GameObject.Instantiate(this.DotPrefab);
-            dot.transform.SetParent(this.TargetCanvas.transform);
+            var keyCode = this.KeyCodes[i];
 
-            var rectTransform = dot.GetComponent<RectTransform>();
-            var image = dot.GetComponent<UnityEngine.UI.Image>();
+            var dot = new GameObject();
+            dot.name = "dot";
 
-            if (i < this.CompletedCount)
+            dot.transform.SetParent(this.TargetCanvas.transform, false);
+
+            var circle = GameObject.Instantiate(this.DotCirclePrefab);
+            circle.transform.SetParent(dot.transform, false);
+
+            var text = GameObject.Instantiate(this.DotTextPrefab);
+            text.transform.SetParent(dot.transform, false);
+
+            text.GetComponent<UnityEngine.UI.Text>().text = keyCode.ToString();
+
+            var image = circle.GetComponent<UnityEngine.UI.Image>();
+            if (i == this.FailedIndex)
+            {
+                image.color = new Color(1.0f, 0.0f, 0.0f);
+            }
+            else if (i < this.CompletedCount)
             {
                 image.color = new Color(0.0f, 1.0f, 0.0f);
             }
 
             var width = 500.0f;
-            var x = this.Count > 1 ? (-0.5f * width + ((float)i / (this.Count - 1)) * width) : 0.0f;
-            rectTransform.anchoredPosition = new Vector2(x, 0.0f);
+            var x = this.KeyCodes.Count > 1 ?
+                (-0.5f * width + ((float)i / (this.KeyCodes.Count - 1)) * width) :
+                0.0f;
+
+            var rectTransform1 = circle.GetComponent<RectTransform>();
+            rectTransform1.anchoredPosition = new Vector2(x, 0.0f);
+
+            var rectTransform2 = text.GetComponent<RectTransform>();
+            rectTransform2.anchoredPosition = new Vector2(x, 0.0f);
 
             this.dotObjects.Add(dot);
         }

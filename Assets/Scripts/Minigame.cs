@@ -11,14 +11,12 @@ public class Minigame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        this.display.KeyCodes = new List<KeyCode>(this.sequence.keyCodes);
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        this.display.Count = this.sequence.keyCodes.Count;
         this.display.CompletedCount = this.sequence.currentIndex;
 
         if (!Input.anyKeyDown)
@@ -32,6 +30,7 @@ public class Minigame : MonoBehaviour
             {
                 if (code == this.sequence.CurrentKeyCode)
                 {
+                    this.display.FailedIndex = null;
                     this.sequence.AdvanceIndex();
                     if (this.sequence.IsComplete)
                     {
@@ -40,6 +39,9 @@ public class Minigame : MonoBehaviour
                 }
                 else
                 {
+                    this.display.FailedIndex = this.sequence.currentIndex;
+                    this.display.CompletedCount = 0;
+
                     this.sequence.ResetIndex();
                 }
             }
@@ -52,7 +54,7 @@ class Sequence
     public KeyCode? CurrentKeyCode { get => this.IsComplete ? (KeyCode?)null : this.keyCodes[this.currentIndex]; }
     public bool IsComplete { get => this.currentIndex == this.keyCodes.Count; }
 
-    public List<KeyCode> keyCodes = new List<KeyCode> { KeyCode.A, KeyCode.A, KeyCode.B, KeyCode.B };
+    public List<KeyCode> keyCodes = new List<KeyCode> { KeyCode.W, KeyCode.W, KeyCode.S, KeyCode.S, KeyCode.D };
     public int currentIndex = 0;
 
     public void ResetIndex()
