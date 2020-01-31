@@ -13,6 +13,7 @@ public class CameraLogic : MonoBehaviour
     public CinemachineVirtualCamera startCamera;
 
     private CinemachineVirtualCamera currentCamera;
+    private CinemachineBasicMultiChannelPerlin currentCamerasNoise;
 
     [Range(0, 30)]
     public float amplitudeGain;
@@ -51,6 +52,8 @@ public class CameraLogic : MonoBehaviour
         TimerImage.fillAmount = 0f;
         FinalScreen.SetActive(false);
         currentCamera = startCamera;
+        currentCamerasNoise = currentCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        
     }
 
     public void GoNextObject()
@@ -64,6 +67,7 @@ public class CameraLogic : MonoBehaviour
             virtualCameras[nextCameraIndex].Priority = 10;
 
             currentCamera = virtualCameras[nextCameraIndex];
+            currentCamerasNoise = currentCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         }
         else
         {
@@ -102,12 +106,12 @@ public class CameraLogic : MonoBehaviour
         if (freqFraction < 1)
         {
             freqFraction = timeFromStart / 20f;
-            currentCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = Mathf.Lerp(freqStart, frequencyGain, freqFraction);
+            currentCamerasNoise.m_FrequencyGain = Mathf.Lerp(freqStart, frequencyGain, freqFraction);
         }
         if (amplFraction < 1)
         {
             amplFraction = timeFromStart / 20f;
-            currentCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = Mathf.Lerp(amplStart, amplitudeGain, amplFraction);
+            currentCamerasNoise.m_AmplitudeGain = Mathf.Lerp(amplStart, amplitudeGain, amplFraction);
         }
 
     }
@@ -124,7 +128,6 @@ public class CameraLogic : MonoBehaviour
         {
             FinalScreenTextObject.text = badFinalText.Replace("\\n", "\n");
         }
-
 
         FinalScreen.SetActive(true);
     }
