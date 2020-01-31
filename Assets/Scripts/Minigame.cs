@@ -5,6 +5,7 @@ using UnityEngine;
 public class Minigame : MonoBehaviour
 {
     public MinigameDisplay display;
+    public bool IsComplete { get => this.sequence.IsComplete; }
 
     Sequence sequence = new Sequence();
 
