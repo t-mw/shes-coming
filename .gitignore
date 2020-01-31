@@ -58,7 +58,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-
 #FMOD
 
 /[Aa]ssets/Plugins/FMOD/
@@ -79,3 +78,7 @@ crashlytics-build.properties
 
 fmod_editor.log
 fmod.log
+
+# mac
+
+.DS_Store
