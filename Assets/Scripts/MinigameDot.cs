@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MinigameDotState { Normal, Passed, Failed, Hidden }
+public enum MinigameDotState { Normal, Passed, Failed }
 public enum ArrowOrientation { Left, Right, Up, Down }
 
 public class MinigameDot : MonoBehaviour
@@ -12,24 +12,12 @@ public class MinigameDot : MonoBehaviour
 
     private bool fadeIn = false;
     public float? fadeTime = null;
+    public float alpha = 1.0f;
 
     public ArrowOrientation arrowOrientation = ArrowOrientation.Up;
+    public MinigameDotState state;
 
-    public MinigameDotState State
-    {
-        get => _state;
-        set
-        {
-            if (_state != value)
-            {
-                this.stateChangeTime = Time.time;
-                _state = value;
-            }
-        }
-    }
-    private MinigameDotState _state = MinigameDotState.Normal;
-
-    float? stateChangeTime = null;
+    public float? focusTime = null;
 
     public void FadeIn()
     {
@@ -54,8 +42,8 @@ public class MinigameDot : MonoBehaviour
     {
         this.UpdateColors();
 
-        float boopScaleLerp = this.stateChangeTime.HasValue ?
-            Mathf.Clamp(1.0f - (Time.time - this.stateChangeTime.Value) / 0.2f, 0.0f, 1.0f) : 0.0f;
+        float boopScaleLerp = this.focusTime.HasValue ?
+            Mathf.Clamp(1.0f - (Time.time - this.focusTime.Value) / 0.2f, 0.0f, 1.0f) : 0.0f;
         boopScaleLerp *= boopScaleLerp;
 
         float scale = 1.0f + 0.4f * Mathf.Lerp(0.0f, 1.0f, boopScaleLerp);
@@ -84,15 +72,15 @@ public class MinigameDot : MonoBehaviour
     {
         {
             var image = this.Circle.GetComponent<UnityEngine.UI.Image>();
-            if (this.State == MinigameDotState.Normal)
+            if (this.state == MinigameDotState.Normal)
             {
                 image.color = new Color(1.0f, 1.0f, 1.0f, this.GetColorAlpha());
             }
-            else if (this.State == MinigameDotState.Passed)
+            else if (this.state == MinigameDotState.Passed)
             {
                 image.color = new Color(0.0f, 1.0f, 0.0f, this.GetColorAlpha());
             }
-            else if (this.State == MinigameDotState.Failed)
+            else if (this.state == MinigameDotState.Failed)
             {
                 image.color = new Color(1.0f, 0.0f, 0.0f, this.GetColorAlpha());
             }
@@ -100,7 +88,7 @@ public class MinigameDot : MonoBehaviour
 
         {
             var image = this.Arrow.GetComponent<UnityEngine.UI.Image>();
-            if (this.State == MinigameDotState.Normal)
+            if (this.state == MinigameDotState.Normal)
             {
                 image.color = new Color(0.0f, 0.0f, 0.0f, this.GetColorAlpha());
             }
@@ -113,34 +101,6 @@ public class MinigameDot : MonoBehaviour
 
     float GetColorAlpha()
     {
-        float? lerp = null;
-        if (this.fadeTime.HasValue)
-        {
-            lerp = Mathf.Clamp((Time.time - this.fadeTime.Value) / 0.3f, 0.0f, 1.0f);
-        }
-
-        if (this.fadeIn)
-        {
-            if (lerp.HasValue)
-            {
-                return Mathf.Lerp(0.0f, 1.0f, lerp.Value);
-            }
-            else
-            {
-                return 1.0f;
-            }
-        }
-        else
-        {
-            if (lerp.HasValue)
-            {
-
-                return 1.0f - Mathf.Lerp(0.0f, 1.0f, lerp.Value);
-            }
-            else
-            {
-                return 0.0f;
-            }
-        }
+        return this.alpha * Utility.CalculateFade(this.fadeTime, 0.3f, this.fadeIn);
     }
 }
