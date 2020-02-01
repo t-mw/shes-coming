@@ -642,6 +642,8 @@ GameObject:
   - component: {fileID: 487195699}
   - component: {fileID: 487195698}
   - component: {fileID: 487195697}
+  - component: {fileID: 487195702}
+  - component: {fileID: 487195701}
   m_Layer: 0
   m_Name: BrokenSphere
   m_TagString: Untagged
@@ -679,7 +681,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2bdb99c3adaf7f4419c01e60107d49de, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -722,6 +724,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &487195701
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487195696}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a0576b2ea6c97954e92b55659d3356ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &487195702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487195696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a070aba29c2da7342847ffc3b0d23f38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 487195701}
 --- !u!1 &565621586
 GameObject:
   m_ObjectHideFlags: 0
@@ -1196,7 +1230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionTag: 
-  Event: event:/Track2
+  Event: event:/GameTrack
   PlayEvent: 1
   StopEvent: 12
   AllowFadeout: 1
@@ -2509,7 +2543,6 @@ MonoBehaviour:
   frequencyGain: 0.1
   frequencySpeed: 0.5
   TimerImage: {fileID: 2002145041}
-  minigameManager: {fileID: 1435164695}
   FinalScreen: {fileID: 1227622655}
   FinalScreenTextObject: {fileID: 1913950408}
   badFinalText: Your time is out. \nYour mom is not happy!
