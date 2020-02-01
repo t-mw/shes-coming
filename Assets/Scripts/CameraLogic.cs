@@ -100,6 +100,7 @@ public class CameraLogic : MonoBehaviour
     public void StartGame()
     {
         startGame = true;
+        isBlendComplete = true;
     }
 
     public void GoNextObject()
@@ -149,7 +150,7 @@ public class CameraLogic : MonoBehaviour
                 timeFromStart = Time.time - timeOnStart;
                 currentFraction = minigameManager.CompleteFraction;
                 
-                TapingSound();
+               
 
                 if (timeFromStart <= 20f)
                 {
@@ -180,30 +181,22 @@ public class CameraLogic : MonoBehaviour
                 GoNextObject();
             }
 
-            if (this.onFinalScreen)
+            if (freqFraction < 1)
             {
-                currentCamerasNoise.m_FrequencyGain = freqStart;
-                currentCamerasNoise.m_AmplitudeGain = amplStart;
-
+                freqFraction = timeFromStart / 20f;
+                currentCamerasNoise.m_FrequencyGain = Mathf.Lerp(freqStart, frequencyGain, freqFraction);
             }
-            else
+            if (amplFraction < 1)
             {
-                if (freqFraction < 1)
-                {
-                    freqFraction = timeFromStart / 20f;
-                    currentCamerasNoise.m_FrequencyGain = Mathf.Lerp(freqStart, frequencyGain, freqFraction);
-                }
-                if (amplFraction < 1)
-                {
-                    amplFraction = timeFromStart / 20f;
-                    currentCamerasNoise.m_AmplitudeGain = Mathf.Lerp(amplStart, amplitudeGain, amplFraction);
-                }
+                amplFraction = timeFromStart / 20f;
+                currentCamerasNoise.m_AmplitudeGain = Mathf.Lerp(amplStart, amplitudeGain, amplFraction);
             }
 
             if (this.onFinalScreen && this.menuActions.AdvanceMenu.WasPressed)
             {
                 SceneManager.LoadScene(0);
             }
+            if (activeBlend == null && !onFinalScreen) TapingSound();
         }
     }
 
@@ -258,31 +251,32 @@ public class CameraLogic : MonoBehaviour
             {
                 currentObject.animationScript.PlayBackAnimation();
                 repairStage = 0;
+                Debug.Log("wrong button");
             }
 
            
 
             
         }
-
+        Debug.Log(currentFraction);
         switch (repairStage)
         {
-
+            
             case 0:
-                if (currentFraction > 0.25f)
+                if (currentFraction > 0.3f)
                 {
                     PlayTapingSound();
                     
                 }
                 break;
             case 1:
-                if (currentFraction > 0.5f)
+                if (currentFraction > 0.6f)
                 {
                     PlayTapingSound();
                 }
                 break;
             case 2:
-                if (currentFraction > 0.75f)
+                if (currentFraction > 0.8f)
                 {
                     PlayTapingSound();
                 }
@@ -305,7 +299,7 @@ public class CameraLogic : MonoBehaviour
         currentObject.animationScript.NextAnimation();
         repairStage++;
         soundManager.Taping();
-        if (repairStage > 3)
+        if (repairStage > 2)
         {
             repairStage = 0;
         }

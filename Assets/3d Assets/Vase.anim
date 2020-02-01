@@ -7558,21 +7558,21 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
+  - time: 0.6666667
     functionName: SpeedToZero
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.0416666
+  - time: 1.375
     functionName: SpeedToZero
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.5416666
+  - time: 2.0416667
     functionName: SpeedToZero
     data: 
     objectReferenceParameter: {fileID: 0}

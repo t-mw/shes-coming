@@ -12,8 +12,8 @@ public class Animation : MonoBehaviour
 
     private void Start()
     {
-        anim.SetFloat("animSpeed", 0f);
-      
+        anim.SetFloat("animSpeed", 1f);
+        anim.enabled = false;
         onPlayback = false;
     }
 
@@ -26,7 +26,7 @@ public class Animation : MonoBehaviour
             anim.enabled = false;
 
         }
-        
+        Debug.Log("zero");
 
     }
     public void PlaybackOff()
@@ -40,6 +40,7 @@ public class Animation : MonoBehaviour
 
     public void NextAnimation()
     {
+
         if (onPlayback)
         {
             anim.enabled = true;
