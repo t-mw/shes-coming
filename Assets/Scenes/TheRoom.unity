@@ -461,6 +461,8 @@ GameObject:
   - component: {fileID: 374488458}
   - component: {fileID: 374488457}
   - component: {fileID: 374488456}
+  - component: {fileID: 374488461}
+  - component: {fileID: 374488460}
   m_Layer: 0
   m_Name: BrokenCube
   m_TagString: Untagged
@@ -541,6 +543,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &374488460
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374488455}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 594c9871c8bb146408d916bc0a2936b0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &374488461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374488455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a070aba29c2da7342847ffc3b0d23f38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 374488460}
 --- !u!1 &395959433
 GameObject:
   m_ObjectHideFlags: 3
@@ -1511,6 +1545,8 @@ GameObject:
   - component: {fileID: 1224998959}
   - component: {fileID: 1224998958}
   - component: {fileID: 1224998957}
+  - component: {fileID: 1224998962}
+  - component: {fileID: 1224998961}
   m_Layer: 0
   m_Name: BrokenCylinder
   m_TagString: Untagged
@@ -1592,6 +1628,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1224998961
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224998956}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b617da22cc37fe34f945c19ba97b391e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1224998962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224998956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a070aba29c2da7342847ffc3b0d23f38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1224998961}
 --- !u!1 &1227622655
 GameObject:
   m_ObjectHideFlags: 0
@@ -2565,11 +2633,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b2781071f580a9499efd5c66453e880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playableObjects:
+  - objectID: Sphere
+    virtualCamera: {fileID: 244520178}
+    animationScript: {fileID: 487195702}
+  - objectID: Cylinder
+    virtualCamera: {fileID: 2014171478}
+    animationScript: {fileID: 1224998962}
+  - objectID: Cube
+    virtualCamera: {fileID: 622618444}
+    animationScript: {fileID: 374488461}
   cameraBrain: {fileID: 979872810}
-  virtualCameras:
-  - {fileID: 244520178}
-  - {fileID: 622618444}
-  - {fileID: 2014171478}
   startCamera: {fileID: 130846919}
   amplitudeGain: 3.9
   amplitudeSpeed: 0.5
