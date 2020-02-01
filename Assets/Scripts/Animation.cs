@@ -7,76 +7,81 @@ public class Animation : MonoBehaviour
    
     public Animator anim;
 
-    private int currentStage = 0;
+    public bool onPlayback = false;
+    public bool repaired = false;
 
- 
+    private void Start()
+    {
+        anim.SetFloat("animSpeed", 1f);
+        anim.enabled = false;
+        onPlayback = false;
+    }
+
+    public void Repaired()
+    {
+        repaired = true;
+        anim.SetFloat("animSpeed", 1f);
+        anim.enabled = true;
+    }
+
+
+    public void SpeedToZero()
+    {
+        if (!onPlayback && !repaired)
+        {
+       
+            anim.SetFloat("animSpeed", 0f);
+            anim.enabled = false;
+            Debug.Log("zero");
+        }
+       
+
+    }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (onPlayback && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.1f)
         {
-            PlayNextAnimation();
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            PlayBackAnimation();
+            anim.SetFloat("animSpeed", 0f);
+            anim.enabled = false;
+            onPlayback = false;
         }
     }
 
-    public void SetGameProgress(float fraction)
-    {
-        if (fraction < 0.25)
-        {
-            anim.Play("Stage 0");
-            return;
-        }
-        if (fraction < 0.5)
-        {
-            anim.Play("Stage 1");
-            return;
-        }
-        if (fraction < 0.75)
-        {
-            anim.Play("Stage 2");
-            return;
-        }
-        if (fraction == 1)
-        {
-            anim.Play("Stage 3");
-            return;
-        }
 
+
+    public void PlaybackOff()
+    {
+        onPlayback = false;
     }
 
-    public void PlayNextAnimation()
-    {
-        switch (currentStage)
-        {
-            case 0:
-                anim.Play("Stage 1");
-                break;
-            case 1:
-                anim.Play("Stage 2");
-                break;
-            case 2:
-                anim.Play("Stage 3");
-                break;
 
-            default:
-                break;
-        }
-        currentStage++;
-    }
 
-    public void PlayBackAnimation()
+    public void NextAnimation()
     {
-        if (currentStage == 2)
+
+        if (onPlayback)
         {
-            anim.Play("Stage Back");
+            anim.enabled = true;
+            onPlayback = false;
+            anim.Play("Animation", 0, 0f);
+            
         }
         else
         {
-            anim.Play("Stage 0");
+            anim.enabled = true;
+            anim.SetFloat("animSpeed", 1f);
+           // anim.Play("Animation", 0, startTime);
         }
-        currentStage = 0;
+
+    }
+
+
+    public void PlayBackAnimation()
+    {
+        Debug.Log("playback checker");
+        onPlayback = true;
+        anim.enabled = true;
+        anim.SetFloat("animSpeed", -2f);
     }
 }
