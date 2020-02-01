@@ -19,6 +19,11 @@ public class CameraLogic : MonoBehaviour
     public List<PlayableObject> playableObjects;
     private PlayableObject currentObject;
 
+    [Header("SOUND STUFF")]
+    public SoundManager soundManager;
+    private bool wasOnTapeSFX = false;
+    private float currentFraction = 0f;
+
     [Header("CAMERAS STUFF")]
     public CinemachineBrain cameraBrain;
     public CinemachineVirtualCamera startCamera;
@@ -54,15 +59,18 @@ public class CameraLogic : MonoBehaviour
     public string badFinalText;
     public string goodFinalText;
 
-    private int objectsToSolveCount;
-    private int solvedObjectsCount = 0;
+    public int objectsToSolveCount;
+    public int solvedObjectsCount = 0;
 
     private bool onFinalScreen = false;
     private bool isBlendComplete = false;
 
+    private int repairStage = 0;
+
     private void Start()
     {
         currentObject = playableObjects[0];
+        currentObject.virtualCamera.Priority = 10;
 
         objectsToSolveCount = playableObjects.Count;
         timeOnStart = Time.time;
@@ -74,8 +82,11 @@ public class CameraLogic : MonoBehaviour
 
     public void GoNextObject()
     {
+        repairStage = 0;
+
         if (playableObjects.Count > 1)
         {
+            solvedObjectsCount++;
             playableObjects.Remove(currentObject);
             cameraBrain.ActiveVirtualCamera.Priority = 0;
 
@@ -89,6 +100,7 @@ public class CameraLogic : MonoBehaviour
         }
         else
         {
+            solvedObjectsCount++;
             onFinalScreen = true;
             FinalScreenOn();
         }
@@ -96,13 +108,14 @@ public class CameraLogic : MonoBehaviour
 
     private void Update()
     {
-
-        timeFromStart = Time.time - timeOnStart;
-
-        currentObject.animationScript.SetGameProgress(minigameManager.CompleteFraction);
-
+        
         if (!onFinalScreen)
         {
+            timeFromStart = Time.time - timeOnStart;
+            currentFraction = minigameManager.CompleteFraction;
+            currentObject.animationScript.SetGameProgress(currentFraction);
+            TapingSound();
+
             if (timeFromStart <= 20f)
             {
                 TimerImage.fillAmount = timeFromStart / 20f;
@@ -132,7 +145,7 @@ public class CameraLogic : MonoBehaviour
                 this.minigameManager.EndGame();
 
                 GoNextObject();
-                solvedObjectsCount++;
+                
             }
             else
             {
@@ -171,5 +184,54 @@ public class CameraLogic : MonoBehaviour
         }
 
         FinalScreen.SetActive(true);
+    }
+
+
+    public void TapingSound()
+    {
+        if (currentFraction < 0.25f)
+        {
+            repairStage = 0;
+        }
+
+       
+
+        switch (repairStage)
+        {
+
+            case 0:
+                if (currentFraction > 0.25f)
+                {
+                    PlayTapingSound();
+                }
+                break;
+            case 1:
+                if (currentFraction > 0.5f)
+                {
+                    PlayTapingSound();
+                }
+                break;
+            case 2:
+                if (currentFraction > 0.75f)
+                {
+                    PlayTapingSound();
+                }
+                break;
+            case 3:
+                if (currentFraction > 0.9f)
+                {
+                    PlayTapingSound();
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public void PlayTapingSound()
+    {
+        repairStage++;
+        soundManager.Taping();
     }
 }
