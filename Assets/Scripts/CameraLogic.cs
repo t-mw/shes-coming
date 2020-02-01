@@ -107,7 +107,7 @@ public class CameraLogic : MonoBehaviour
         {
             if (!onFinalScreen)
             {
-                this.minigameManager.BeginTransition();
+                this.minigameManager.EndGame();
 
                 GoNextObject();
                 solvedObjectsCount++;
@@ -132,7 +132,7 @@ public class CameraLogic : MonoBehaviour
 
     public void NextObjectReachedOn()
     {
-        this.minigameManager.EndTransition();
+        this.minigameManager.BeginGame();
     }
 
     public void FinalScreenOn()
