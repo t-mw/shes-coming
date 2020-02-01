@@ -303,7 +303,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244520176}
-  m_LocalRotation: {x: 0.29038748, y: -0.39871055, z: 0.13472383, w: 0.859392}
+  m_LocalRotation: {x: 0.29038745, y: -0.39871052, z: 0.1347238, w: 0.859392}
   m_LocalPosition: {x: -1.6, y: 1, z: 2.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -883,7 +883,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 622618442}
-  m_LocalRotation: {x: 0.2238758, y: 0.20153861, z: -0.04737591, w: 0.9523746}
+  m_LocalRotation: {x: 0.22387584, y: 0.20153865, z: -0.047375925, w: 0.9523746}
   m_LocalPosition: {x: -1.6, y: -0.2, z: 4.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2543,6 +2543,7 @@ MonoBehaviour:
   frequencyGain: 0.1
   frequencySpeed: 0.5
   TimerImage: {fileID: 2002145041}
+  minigameManager: {fileID: 1435164695}
   FinalScreen: {fileID: 1227622655}
   FinalScreenTextObject: {fileID: 1913950408}
   badFinalText: Your time is out. \nYour mom is not happy!
