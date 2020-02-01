@@ -13,9 +13,7 @@ public class MinigameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.display.KeyCodes = new List<KeyCode>(this.sequence.keyCodes);
-        this.display.Reset();
-        this.display.FadeIn();
+        this.BeginGame();
     }
 
     // Update is called once per frame
@@ -52,15 +50,18 @@ public class MinigameManager : MonoBehaviour
         }
     }
 
-    public void BeginTransition()
+    public void EndGame()
     {
         this.isTransitioning = true;
         this.display.FadeOut();
     }
 
-    public void EndTransition()
+    public void BeginGame()
     {
         this.sequence.ResetIndex();
+        this.sequence.Randomize();
+
+        this.display.KeyCodes = new List<KeyCode>(this.sequence.keyCodes);
         this.display.Reset();
 
         this.isTransitioning = false;
@@ -84,5 +85,18 @@ class Sequence
     public void AdvanceIndex()
     {
         this.currentIndex += 1;
+    }
+
+    public void Randomize()
+    {
+        this.keyCodes.Clear();
+
+        KeyCode[] keyCodes = { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
+
+        for (var i = 0; i < Random.Range(5, 10); i++)
+        {
+            KeyCode keyCode = keyCodes[Random.Range(0, keyCodes.Length - 1)];
+            this.keyCodes.Add(keyCode);
+        }
     }
 }
