@@ -101,6 +101,11 @@ public class CameraLogic : MonoBehaviour
 
         currentObject.animationScript.SetGameProgress(minigameManager.CompleteFraction);
 
+        if (this.minigameManager.IsComplete)
+        {
+            solvedObjectsCount++;
+        }
+
         if (!onFinalScreen)
         {
             if (timeFromStart <= 20f)
@@ -130,9 +135,7 @@ public class CameraLogic : MonoBehaviour
             if (!onFinalScreen)
             {
                 this.minigameManager.EndGame();
-
                 GoNextObject();
-                solvedObjectsCount++;
             }
             else
             {
