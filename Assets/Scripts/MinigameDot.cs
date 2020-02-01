@@ -3,28 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum MinigameDotState { Normal, Passed, Failed, Hidden }
+public enum ArrowOrientation { Left, Right, Up, Down }
 
 public class MinigameDot : MonoBehaviour
 {
-    public GameObject Text;
+    public GameObject Arrow;
     public GameObject Circle;
 
     private bool fadeIn = false;
     public float? fadeTime = null;
 
-    public string text
-    {
-        get => _text;
-        set
-        {
-            if (_text != value)
-            {
-                this.Text.GetComponent<UnityEngine.UI.Text>().text = value;
-                _text = value;
-            }
-        }
-    }
-    private string _text = "";
+    public ArrowOrientation arrowOrientation = ArrowOrientation.Up;
 
     public MinigameDotState State
     {
@@ -33,19 +22,6 @@ public class MinigameDot : MonoBehaviour
         {
             if (_state != value)
             {
-                var image = this.Circle.GetComponent<UnityEngine.UI.Image>();
-                if (value == MinigameDotState.Normal)
-                {
-                    image.color = new Color(1.0f, 1.0f, 1.0f, this.GetColorAlpha());
-                }
-                else if (value == MinigameDotState.Passed)
-                {
-                    image.color = new Color(0.0f, 1.0f, 0.0f, this.GetColorAlpha());
-                }
-                else if (value == MinigameDotState.Failed)
-                {
-                    image.color = new Color(1.0f, 0.0f, 0.0f, this.GetColorAlpha());
-                }
                 this.stateChangeTime = Time.time;
                 _state = value;
             }
@@ -84,22 +60,54 @@ public class MinigameDot : MonoBehaviour
 
         float scale = 1.0f + 0.4f * Mathf.Lerp(0.0f, 1.0f, boopScaleLerp);
         this.transform.localScale = new Vector3(scale, scale, scale);
+
+        switch (this.arrowOrientation)
+        {
+            case ArrowOrientation.Up:
+                this.transform.localEulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+                break;
+            case ArrowOrientation.Down:
+                this.transform.localEulerAngles = new Vector3(0.0f, 0.0f, 180.0f);
+                break;
+            case ArrowOrientation.Left:
+                this.transform.localEulerAngles = new Vector3(0.0f, 0.0f, 90.0f);
+                break;
+            case ArrowOrientation.Right:
+                this.transform.localEulerAngles = new Vector3(0.0f, 0.0f, 270.0f);
+                break;
+            default:
+                break;
+        }
     }
 
     void UpdateColors()
     {
-        var text = this.Text.GetComponent<UnityEngine.UI.Text>();
         {
-            var color = text.color;
-            color.a = this.GetColorAlpha();
-            text.color = color;
+            var image = this.Circle.GetComponent<UnityEngine.UI.Image>();
+            if (this.State == MinigameDotState.Normal)
+            {
+                image.color = new Color(1.0f, 1.0f, 1.0f, this.GetColorAlpha());
+            }
+            else if (this.State == MinigameDotState.Passed)
+            {
+                image.color = new Color(0.0f, 1.0f, 0.0f, this.GetColorAlpha());
+            }
+            else if (this.State == MinigameDotState.Failed)
+            {
+                image.color = new Color(1.0f, 0.0f, 0.0f, this.GetColorAlpha());
+            }
         }
 
-        var image = this.Circle.GetComponent<UnityEngine.UI.Image>();
         {
-            var color = image.color;
-            color.a = this.GetColorAlpha();
-            image.color = color;
+            var image = this.Arrow.GetComponent<UnityEngine.UI.Image>();
+            if (this.State == MinigameDotState.Normal)
+            {
+                image.color = new Color(0.0f, 0.0f, 0.0f, this.GetColorAlpha());
+            }
+            else
+            {
+                image.color = new Color(1.0f, 1.0f, 1.0f, 0.9f * this.GetColorAlpha());
+            }
         }
     }
 

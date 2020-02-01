@@ -47,7 +47,24 @@ public class MinigameDisplay : MonoBehaviour
             var keyCode = this.KeyCodes[i];
 
             var minigameDot = dot.GetComponent<MinigameDot>();
-            minigameDot.text = keyCode.ToString();
+            switch (keyCode)
+            {
+                case KeyCode.W:
+                    minigameDot.arrowOrientation = ArrowOrientation.Up;
+                    break;
+                case KeyCode.A:
+                    minigameDot.arrowOrientation = ArrowOrientation.Left;
+                    break;
+                case KeyCode.S:
+                    minigameDot.arrowOrientation = ArrowOrientation.Down;
+                    break;
+                case KeyCode.D:
+                    minigameDot.arrowOrientation = ArrowOrientation.Right;
+                    break;
+                default:
+                    break;
+            }
+
             if (i == this.failedIndex)
             {
                 minigameDot.State = MinigameDotState.Failed;
