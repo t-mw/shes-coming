@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using InControl;
 using UnityEngine;
 
 public class MinigameManager : MonoBehaviour
@@ -9,10 +10,29 @@ public class MinigameManager : MonoBehaviour
 
     Sequence sequence = new Sequence();
     bool isTransitioning = false;
+    MinigameActions minigameActions;
 
     // Start is called before the first frame update
     void Start()
     {
+        minigameActions = new MinigameActions();
+
+        minigameActions.Left.AddDefaultBinding(Key.LeftArrow);
+        minigameActions.Left.AddDefaultBinding(Key.A);
+        minigameActions.Left.AddDefaultBinding(InputControlType.DPadLeft);
+
+        minigameActions.Right.AddDefaultBinding(Key.RightArrow);
+        minigameActions.Right.AddDefaultBinding(Key.D);
+        minigameActions.Right.AddDefaultBinding(InputControlType.DPadRight);
+
+        minigameActions.Up.AddDefaultBinding(Key.UpArrow);
+        minigameActions.Up.AddDefaultBinding(Key.W);
+        minigameActions.Up.AddDefaultBinding(InputControlType.DPadUp);
+
+        minigameActions.Down.AddDefaultBinding(Key.DownArrow);
+        minigameActions.Down.AddDefaultBinding(Key.S);
+        minigameActions.Down.AddDefaultBinding(InputControlType.DPadDown);
+
         this.BeginGame();
     }
 
@@ -21,31 +41,27 @@ public class MinigameManager : MonoBehaviour
     {
         this.display.CompletedCount = this.sequence.currentIndex;
 
-        if (!Input.anyKeyDown)
-        {
-            return;
-        }
+        bool leftPressed = this.minigameActions.Left.WasPressed;
+        bool rightPressed = this.minigameActions.Right.WasPressed;
+        bool upPressed = this.minigameActions.Up.WasPressed;
+        bool downPressed = this.minigameActions.Down.WasPressed;
 
-        foreach (KeyCode code in System.Enum.GetValues(typeof(KeyCode)))
+        if (leftPressed || rightPressed || upPressed || downPressed)
         {
-            if (Input.GetKeyDown(code))
+            if ((leftPressed && this.sequence.CurrentKeyCode == KeyCode.A) ||
+                (rightPressed && this.sequence.CurrentKeyCode == KeyCode.D) ||
+                (upPressed && this.sequence.CurrentKeyCode == KeyCode.W) ||
+                (downPressed && this.sequence.CurrentKeyCode == KeyCode.S))
             {
-                if (code == this.sequence.CurrentKeyCode)
-                {
-                    this.display.failedIndex = null;
-                    this.sequence.AdvanceIndex();
-                    if (this.sequence.IsComplete)
-                    {
-                        // ...
-                    }
-                }
-                else
-                {
-                    this.display.failedIndex = this.sequence.currentIndex;
-                    this.display.CompletedCount = 0;
+                this.display.failedIndex = null;
+                this.sequence.AdvanceIndex();
+            }
+            else
+            {
+                this.display.failedIndex = this.sequence.currentIndex;
+                this.display.CompletedCount = 0;
 
-                    this.sequence.ResetIndex();
-                }
+                this.sequence.ResetIndex();
             }
         }
     }
@@ -98,5 +114,21 @@ class Sequence
             KeyCode keyCode = keyCodes[Random.Range(0, keyCodes.Length - 1)];
             this.keyCodes.Add(keyCode);
         }
+    }
+}
+
+public class MinigameActions : PlayerActionSet
+{
+    public PlayerAction Left;
+    public PlayerAction Right;
+    public PlayerAction Up;
+    public PlayerAction Down;
+
+    public MinigameActions()
+    {
+        Left = CreatePlayerAction("Left");
+        Right = CreatePlayerAction("Right");
+        Up = CreatePlayerAction("Up");
+        Down = CreatePlayerAction("Down");
     }
 }
