@@ -10,6 +10,7 @@ public class MinigameManager : MonoBehaviour
     public bool IsComplete { get => this.sequence.IsComplete && !this.isTransitioning; }
     public float CompleteFraction { get => (float)this.sequence.currentIndex / this.sequence.keyCodes.Count; }
 
+    int stage = 0;
     Sequence sequence = new Sequence();
     bool isTransitioning = false;
     MinigameActions minigameActions;
@@ -85,8 +86,11 @@ public class MinigameManager : MonoBehaviour
 
     public void BeginGame()
     {
+        this.stage += 1;
+        int sequenceLength = 6 + 2 * (this.stage - 1);
+
         this.sequence.ResetIndex();
-        this.sequence.Randomize();
+        this.sequence.Randomize(sequenceLength);
 
         this.gameDisplay.KeyCodes = new List<KeyCode>(this.sequence.keyCodes);
         this.gameDisplay.Reset();
@@ -114,13 +118,13 @@ class Sequence
         this.currentIndex += 1;
     }
 
-    public void Randomize()
+    public void Randomize(int count)
     {
         this.keyCodes.Clear();
 
         KeyCode[] keyCodes = { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
 
-        for (var i = 0; i < Random.Range(5, 10); i++)
+        for (var i = 0; i < count; i++)
         {
             KeyCode keyCode = keyCodes[Random.Range(0, keyCodes.Length - 1)];
             this.keyCodes.Add(keyCode);
