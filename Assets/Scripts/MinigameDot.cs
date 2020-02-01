@@ -101,34 +101,6 @@ public class MinigameDot : MonoBehaviour
 
     float GetColorAlpha()
     {
-        float? lerp = null;
-        if (this.fadeTime.HasValue)
-        {
-            lerp = Mathf.Clamp((Time.time - this.fadeTime.Value) / 0.3f, 0.0f, 1.0f);
-        }
-
-        if (this.fadeIn)
-        {
-            if (lerp.HasValue)
-            {
-                return this.alpha * Mathf.Lerp(0.0f, 1.0f, lerp.Value);
-            }
-            else
-            {
-                return this.alpha;
-            }
-        }
-        else
-        {
-            if (lerp.HasValue)
-            {
-
-                return this.alpha * (1.0f - Mathf.Lerp(0.0f, 1.0f, lerp.Value));
-            }
-            else
-            {
-                return 0.0f;
-            }
-        }
+        return this.alpha * Utility.CalculateFade(this.fadeTime, 0.3f, this.fadeIn);
     }
 }
