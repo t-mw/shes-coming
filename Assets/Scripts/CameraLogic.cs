@@ -64,7 +64,7 @@ public class CameraLogic : MonoBehaviour
     {
         currentObject = playableObjects[0];
 
-        objectsToSolveCount = playableObjects.Count-1;
+        objectsToSolveCount = playableObjects.Count;
         timeOnStart = Time.time;
         TimerImage.fillAmount = 0f;
         FinalScreen.SetActive(false);
