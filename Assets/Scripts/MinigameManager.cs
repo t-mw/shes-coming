@@ -36,7 +36,7 @@ public class MinigameManager : MonoBehaviour
         minigameActions.Down.AddDefaultBinding(Key.S);
         minigameActions.Down.AddDefaultBinding(InputControlType.DPadDown);
 
-        this.BeginGame();
+       // this.BeginGame();
     }
 
     // Update is called once per frame

@@ -45,7 +45,7 @@ public class CameraLogic : MonoBehaviour
     private float freqFraction = 0f;
     private float freqStart = 0f;
 
-    private float timeOnStart;
+    private float timeOnStart = 0f;
     private float timeFromStart;
 
     [Header("TIMER STUFF")]
@@ -61,13 +61,14 @@ public class CameraLogic : MonoBehaviour
     public string goodFinalText;
     MenuActions menuActions;
 
-    public int objectsToSolveCount;
-    public int solvedObjectsCount = 0;
+    private int objectsToSolveCount;
+    private int solvedObjectsCount = 0;
 
     private bool onFinalScreen = false;
     private bool isBlendComplete = false;
 
     private int repairStage = 0;
+    public bool startGame = false;
 
     private void Start()
     {
@@ -75,7 +76,7 @@ public class CameraLogic : MonoBehaviour
         currentObject.virtualCamera.Priority = 10;
 
         objectsToSolveCount = playableObjects.Count;
-        timeOnStart = Time.time;
+        
         TimerImage.fillAmount = 0f;
         FinalScreen.SetActive(false);
         currentCamera = startCamera;
@@ -84,6 +85,12 @@ public class CameraLogic : MonoBehaviour
         this.menuActions = new MenuActions();
         this.menuActions.AdvanceMenu.AddDefaultBinding(Key.Space);
         this.menuActions.AdvanceMenu.AddDefaultBinding(InputControlType.DPadX);
+
+    }
+
+    public void StartGame()
+    {
+        startGame = true;
     }
 
     public void GoNextObject()
@@ -114,66 +121,72 @@ public class CameraLogic : MonoBehaviour
 
     private void Update()
     {
-
-
-        timeFromStart = Time.time - timeOnStart;
-
-        currentObject.animationScript.SetGameProgress(minigameManager.CompleteFraction);
-
-        if (this.minigameManager.IsComplete)
+        if (startGame)
         {
-            solvedObjectsCount++;
-        }
-
-        if (!onFinalScreen)
-        {
+            if (timeOnStart == 0)
+            {
+                timeOnStart = Time.time;
+                minigameManager.BeginGame();
+            }
             timeFromStart = Time.time - timeOnStart;
-            currentFraction = minigameManager.CompleteFraction;
-            currentObject.animationScript.SetGameProgress(currentFraction);
-            TapingSound();
 
-            if (timeFromStart <= 20f)
+            currentObject.animationScript.SetGameProgress(minigameManager.CompleteFraction);
+
+            if (this.minigameManager.IsComplete)
             {
-                TimerImage.fillAmount = timeFromStart / 20f;
+                solvedObjectsCount++;
             }
-            else
+
+            if (!onFinalScreen)
             {
-                onFinalScreen = true;
-                FinalScreenOn();
+                timeFromStart = Time.time - timeOnStart;
+                currentFraction = minigameManager.CompleteFraction;
+                currentObject.animationScript.SetGameProgress(currentFraction);
+                TapingSound();
+
+                if (timeFromStart <= 20f)
+                {
+                    TimerImage.fillAmount = timeFromStart / 20f;
+                }
+                else
+                {
+                    onFinalScreen = true;
+                    FinalScreenOn();
+                }
             }
-        }
 
-        if (this.cameraBrain.ActiveBlend != null)
-        {
-            this.activeBlend = this.cameraBrain.ActiveBlend;
-        }
-        var isBlendComplete = this.activeBlend != null && this.activeBlend.IsComplete;
-        if (isBlendComplete && !this.isBlendComplete)
-        {
-            this.NextObjectReachedOn();
-        }
-        this.isBlendComplete = isBlendComplete;
+            if (this.cameraBrain.ActiveBlend != null)
+            {
+                this.activeBlend = this.cameraBrain.ActiveBlend;
+            }
+            var isBlendComplete = this.activeBlend != null && this.activeBlend.IsComplete;
+            if (isBlendComplete && !this.isBlendComplete)
+            {
+                this.NextObjectReachedOn();
+            }
+            this.isBlendComplete = isBlendComplete;
 
-        if (this.minigameManager.IsComplete && !onFinalScreen)
-        {
-            this.minigameManager.EndGame();
-            GoNextObject();
-        }
+            if (this.minigameManager.IsComplete && !onFinalScreen)
+            {
+                this.minigameManager.EndGame();
+                GoNextObject();
+            }
 
-        if (freqFraction < 1)
-        {
-            freqFraction = timeFromStart / 20f;
-            currentCamerasNoise.m_FrequencyGain = Mathf.Lerp(freqStart, frequencyGain, freqFraction);
-        }
-        if (amplFraction < 1)
-        {
-            amplFraction = timeFromStart / 20f;
-            currentCamerasNoise.m_AmplitudeGain = Mathf.Lerp(amplStart, amplitudeGain, amplFraction);
-        }
+            if (freqFraction < 1)
+            {
+                freqFraction = timeFromStart / 20f;
+                currentCamerasNoise.m_FrequencyGain = Mathf.Lerp(freqStart, frequencyGain, freqFraction);
+            }
+            if (amplFraction < 1)
+            {
+                amplFraction = timeFromStart / 20f;
+                currentCamerasNoise.m_AmplitudeGain = Mathf.Lerp(amplStart, amplitudeGain, amplFraction);
+            }
 
-        if (this.onFinalScreen && this.menuActions.AdvanceMenu.WasPressed)
-        {
-            SceneManager.LoadScene(0);
+            if (this.onFinalScreen && this.menuActions.AdvanceMenu.WasPressed)
+            {
+                SceneManager.LoadScene(0);
+            }
         }
     }
 
