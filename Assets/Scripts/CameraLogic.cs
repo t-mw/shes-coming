@@ -33,6 +33,8 @@ public class CameraLogic : MonoBehaviour
     [Header("TIMER STUFF")]
     public Image TimerImage;
 
+    [Header("MINIGAME STUFF")]
+    public MinigameManager minigameManager;
 
     [Header("GRAND FINALE")]
     public GameObject FinalScreen;
@@ -42,7 +44,7 @@ public class CameraLogic : MonoBehaviour
 
     private int objectsToSolveCount;
     private int solvedObjectsCount = 0;
-  
+
     private bool onFinalScreen = false;
 
     private void Start()
@@ -53,7 +55,7 @@ public class CameraLogic : MonoBehaviour
         FinalScreen.SetActive(false);
         currentCamera = startCamera;
         currentCamerasNoise = currentCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        
+
     }
 
     public void GoNextObject()
@@ -90,10 +92,11 @@ public class CameraLogic : MonoBehaviour
         }
 
 
-        if (Input.anyKeyDown)
+        if (this.minigameManager.IsComplete)
         {
             if (!onFinalScreen)
             {
+                this.minigameManager.Reset();
                 GoNextObject();
                 solvedObjectsCount++;
             }

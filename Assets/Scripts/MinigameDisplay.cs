@@ -27,13 +27,46 @@ public class MinigameDisplay : MonoBehaviour
     }
     private int _completedCount = 0;
 
-    public int? FailedIndex = null;
+    public bool regenerate = false;
+    public int? failedIndex = null;
 
     List<GameObject> dotObjects = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        for (var i = 0; i < this.KeyCodes.Count; i++)
+        {
+            var dot = this.dotObjects[i];
+            var keyCode = this.KeyCodes[i];
+
+            var minigameDot = dot.GetComponent<MinigameDot>();
+            minigameDot.text = keyCode.ToString();
+            if (i == this.failedIndex)
+            {
+                minigameDot.state = MinigameDotState.Failed;
+            }
+            else if (i < this.CompletedCount)
+            {
+                minigameDot.state = MinigameDotState.Passed;
+            }
+            else
+            {
+                minigameDot.state = MinigameDotState.Normal;
+            }
+        }
+    }
+
+    public void Reset()
+    {
+        this.dotObjects.Clear();
+
         for (var i = 0; i < this.KeyCodes.Count; i++)
         {
             var dot = GameObject.Instantiate(this.DotPrefab);
@@ -47,31 +80,6 @@ public class MinigameDisplay : MonoBehaviour
             dot.transform.localPosition = new Vector3(x, 0.0f, 0.0f);
 
             this.dotObjects.Add(dot);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        for (var i = 0; i < this.KeyCodes.Count; i++)
-        {
-            var dot = this.dotObjects[i];
-            var keyCode = this.KeyCodes[i];
-
-            var minigameDot = dot.GetComponent<MinigameDot>();
-            minigameDot.text = keyCode.ToString();
-            if (i == this.FailedIndex)
-            {
-                minigameDot.state = MinigameDotState.Failed;
-            }
-            else if (i < this.CompletedCount)
-            {
-                minigameDot.state = MinigameDotState.Passed;
-            }
-            else
-            {
-                minigameDot.state = MinigameDotState.Normal;
-            }
         }
     }
 }
