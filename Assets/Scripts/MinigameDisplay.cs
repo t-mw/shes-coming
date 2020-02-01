@@ -78,6 +78,8 @@ public class MinigameDisplay : MonoBehaviour
                 minigameDot.State = MinigameDotState.Normal;
             }
         }
+
+        this.UpdatePositions();
     }
 
     public void FadeIn()
@@ -105,23 +107,32 @@ public class MinigameDisplay : MonoBehaviour
         this.dotObjects.Clear();
     }
 
+    void UpdatePositions()
+    {
+        var originIndex = this.CompletedCount;
+        for (var i = 0; i < this.dotObjects.Count; i++)
+        {
+            var obj = this.dotObjects[i];
+
+            var separation = 100.0f;
+            var x = -((i - originIndex) * separation);
+
+            var localPosition = obj.transform.localPosition;
+            localPosition.x = (localPosition.x + x) * 0.5f;
+            obj.transform.localPosition = localPosition;
+        }
+    }
+
     public void Reset()
     {
         this.Clear();
 
         for (var i = 0; i < this.KeyCodes.Count; i++)
         {
-            var dot = GameObject.Instantiate(this.DotPrefab);
-            dot.name = "dot";
-            dot.transform.SetParent(this.TargetCanvas.transform, false);
-
-            var width = 700.0f;
-            var x = this.KeyCodes.Count > 1 ?
-                (-0.5f * width + ((float)i / (this.KeyCodes.Count - 1)) * width) :
-                0.0f;
-            dot.transform.localPosition = new Vector3(x, 0.0f, 0.0f);
-
-            this.dotObjects.Add(dot);
+            var obj = GameObject.Instantiate(this.DotPrefab);
+            obj.name = "dot";
+            obj.transform.SetParent(this.TargetCanvas.transform, false);
+            this.dotObjects.Add(obj);
         }
     }
 }
