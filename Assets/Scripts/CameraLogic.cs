@@ -92,7 +92,7 @@ public class CameraLogic : MonoBehaviour
 
         if (playableObjects.Count > 1)
         {
-            solvedObjectsCount++;
+           
             playableObjects.Remove(currentObject);
             cameraBrain.ActiveVirtualCamera.Priority = 0;
 
@@ -106,7 +106,7 @@ public class CameraLogic : MonoBehaviour
         }
         else
         {
-            solvedObjectsCount++;
+            
             onFinalScreen = true;
             FinalScreenOn();
         }
