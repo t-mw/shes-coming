@@ -56,7 +56,8 @@ public class CameraLogic : MonoBehaviour
 
     [Header("GRAND FINALE")]
     public GameObject FinalScreen;
-    public Text FinalScreenTextObject;
+    public Text FinalScreenDescriptionTextObject;
+    public Text FinalScreenAdvanceTextObject;
     public string badFinalText;
     public string goodFinalText;
     MenuActions menuActions;
@@ -76,7 +77,7 @@ public class CameraLogic : MonoBehaviour
         currentObject.virtualCamera.Priority = 10;
 
         objectsToSolveCount = playableObjects.Count;
-        
+
         TimerImage.fillAmount = 0f;
         FinalScreen.SetActive(false);
         currentCamera = startCamera;
@@ -99,7 +100,6 @@ public class CameraLogic : MonoBehaviour
 
         if (playableObjects.Count > 1)
         {
-           
             playableObjects.Remove(currentObject);
             cameraBrain.ActiveVirtualCamera.Priority = 0;
 
@@ -113,7 +113,6 @@ public class CameraLogic : MonoBehaviour
         }
         else
         {
-            
             onFinalScreen = true;
             FinalScreenOn();
         }
@@ -201,12 +200,32 @@ public class CameraLogic : MonoBehaviour
         this.minigameManager.EndGame();
         if (solvedObjectsCount == objectsToSolveCount)
         {
-            FinalScreenTextObject.text = goodFinalText.Replace("\\n", "\n");
+            FinalScreenDescriptionTextObject.text = goodFinalText.Replace("\\n", "\n");
         }
         else
         {
-            FinalScreenTextObject.text = badFinalText.Replace("\\n", "\n");
+            FinalScreenDescriptionTextObject.text = badFinalText.Replace("\\n", "\n");
         }
+
+        string keyName = null;
+        foreach (var binding in this.menuActions.AdvanceMenu.Bindings)
+        {
+            var keyBindingSource = binding as KeyBindingSource;
+            if (keyBindingSource != null)
+            {
+                var keyCombo = keyBindingSource.Control;
+                for (var keyIndex = 0; keyIndex < keyCombo.IncludeCount; keyIndex++)
+                {
+                    var key = keyCombo.GetInclude(keyIndex); // returns enum Key
+                    var keyInfo = KeyInfo.KeyList[(int)key];
+                    keyName = keyInfo.Name;
+                    break;
+                }
+
+            }
+        }
+
+        FinalScreenAdvanceTextObject.text = $"Press {keyName} to restart";
 
         FinalScreen.SetActive(true);
     }
@@ -219,8 +238,6 @@ public class CameraLogic : MonoBehaviour
         {
             repairStage = 0;
         }
-
-       
 
         switch (repairStage)
         {
