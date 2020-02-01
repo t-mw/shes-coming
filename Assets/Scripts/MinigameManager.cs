@@ -35,8 +35,6 @@ public class MinigameManager : MonoBehaviour
         minigameActions.Down.AddDefaultBinding(Key.DownArrow);
         minigameActions.Down.AddDefaultBinding(Key.S);
         minigameActions.Down.AddDefaultBinding(InputControlType.DPadDown);
-
-       // this.BeginGame();
     }
 
     // Update is called once per frame
@@ -61,15 +59,12 @@ public class MinigameManager : MonoBehaviour
                 (upPressed && this.sequence.CurrentKeyCode == KeyCode.W) ||
                 (downPressed && this.sequence.CurrentKeyCode == KeyCode.S))
             {
-                this.gameDisplay.failedIndex = null;
                 this.sequence.AdvanceIndex();
             }
             else
             {
                 this.scoreDisplay.score -= 2;
-
-                this.gameDisplay.failedIndex = this.sequence.currentIndex;
-                this.gameDisplay.CompletedCount = 0;
+                this.gameDisplay.Reset();
 
                 this.sequence.ResetIndex();
             }
@@ -93,7 +88,7 @@ public class MinigameManager : MonoBehaviour
         this.sequence.Randomize(sequenceLength);
 
         this.gameDisplay.KeyCodes = new List<KeyCode>(this.sequence.keyCodes);
-        this.gameDisplay.Reset();
+        this.gameDisplay.Recreate();
 
         this.isTransitioning = false;
         this.gameDisplay.FadeIn();

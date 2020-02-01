@@ -28,7 +28,6 @@ public class MinigameDisplay : MonoBehaviour
     private int _completedCount = 0;
 
     public bool regenerate = false;
-    public int? failedIndex = null;
 
     List<GameObject> dotObjects = new List<GameObject>();
 
@@ -41,12 +40,22 @@ public class MinigameDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var originIndex = this.CompletedCount;
+
         for (var i = 0; i < this.KeyCodes.Count; i++)
         {
             var dot = this.dotObjects[i];
             var keyCode = this.KeyCodes[i];
-
             var minigameDot = dot.GetComponent<MinigameDot>();
+
+            if (i == originIndex && !minigameDot.focusTime.HasValue)
+            {
+                minigameDot.focusTime = Time.time;
+            }
+
+            var alpha = 1.0f - Mathf.Clamp(Mathf.Abs(i - originIndex) / 3.0f, 0.0f, 1.0f);
+            minigameDot.alpha = alpha;
+
             switch (keyCode)
             {
                 case KeyCode.W:
@@ -65,17 +74,13 @@ public class MinigameDisplay : MonoBehaviour
                     break;
             }
 
-            if (i == this.failedIndex)
+            if (i < this.CompletedCount)
             {
-                minigameDot.State = MinigameDotState.Failed;
-            }
-            else if (i < this.CompletedCount)
-            {
-                minigameDot.State = MinigameDotState.Passed;
+                minigameDot.state = MinigameDotState.Passed;
             }
             else
             {
-                minigameDot.State = MinigameDotState.Normal;
+                minigameDot.state = MinigameDotState.Normal;
             }
         }
 
@@ -124,6 +129,17 @@ public class MinigameDisplay : MonoBehaviour
     }
 
     public void Reset()
+    {
+        this.CompletedCount = 0;
+        for (var i = 0; i < this.dotObjects.Count; i++)
+        {
+            var dot = this.dotObjects[i];
+            var minigameDot = dot.GetComponent<MinigameDot>();
+            minigameDot.focusTime = null;
+        }
+    }
+
+    public void Recreate()
     {
         this.Clear();
 
