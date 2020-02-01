@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Minigame : MonoBehaviour
+public class MinigameManager : MonoBehaviour
 {
     public MinigameDisplay display;
     public bool IsComplete { get => this.sequence.IsComplete; }
@@ -13,6 +13,7 @@ public class Minigame : MonoBehaviour
     void Start()
     {
         this.display.KeyCodes = new List<KeyCode>(this.sequence.keyCodes);
+        this.display.Reset();
     }
 
     // Update is called once per frame
@@ -31,7 +32,7 @@ public class Minigame : MonoBehaviour
             {
                 if (code == this.sequence.CurrentKeyCode)
                 {
-                    this.display.FailedIndex = null;
+                    this.display.failedIndex = null;
                     this.sequence.AdvanceIndex();
                     if (this.sequence.IsComplete)
                     {
@@ -40,13 +41,19 @@ public class Minigame : MonoBehaviour
                 }
                 else
                 {
-                    this.display.FailedIndex = this.sequence.currentIndex;
+                    this.display.failedIndex = this.sequence.currentIndex;
                     this.display.CompletedCount = 0;
 
                     this.sequence.ResetIndex();
                 }
             }
         }
+    }
+
+    public void Reset()
+    {
+        this.sequence.ResetIndex();
+        this.display.Reset();
     }
 }
 
