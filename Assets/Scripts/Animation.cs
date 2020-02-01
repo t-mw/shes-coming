@@ -8,7 +8,7 @@ public class Animation : MonoBehaviour
     public Animator anim;
 
     public bool onPlayback = false;
-
+    public bool repaired = false;
 
     private void Start()
     {
@@ -17,9 +17,17 @@ public class Animation : MonoBehaviour
         onPlayback = false;
     }
 
+    public void Repaired()
+    {
+        repaired = true;
+        anim.SetFloat("animSpeed", 1f);
+        anim.enabled = true;
+    }
+
+
     public void SpeedToZero()
     {
-        if (!onPlayback)
+        if (!onPlayback && !repaired)
         {
        
             anim.SetFloat("animSpeed", 0f);

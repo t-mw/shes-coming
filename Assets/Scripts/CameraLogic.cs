@@ -105,8 +105,8 @@ public class CameraLogic : MonoBehaviour
 
     public void GoNextObject()
     {
-        repairStage = 0;
 
+        currentObject.animationScript.Repaired();
         if (playableObjects.Count > 1)
         {
             playableObjects.Remove(currentObject);
@@ -149,8 +149,8 @@ public class CameraLogic : MonoBehaviour
             {
                 timeFromStart = Time.time - timeOnStart;
                 currentFraction = minigameManager.CompleteFraction;
-                
-               
+
+                if (this.cameraBrain.ActiveBlend == null) TapingSound();
 
                 if (timeFromStart <= 20f)
                 {
@@ -196,7 +196,7 @@ public class CameraLogic : MonoBehaviour
             {
                 SceneManager.LoadScene(0);
             }
-            if (activeBlend == null && !onFinalScreen) TapingSound();
+            
         }
     }
 
@@ -266,25 +266,21 @@ public class CameraLogic : MonoBehaviour
                 if (currentFraction > 0.3f)
                 {
                     PlayTapingSound();
-                    
+                    repairStage++;
                 }
                 break;
             case 1:
                 if (currentFraction > 0.6f)
                 {
                     PlayTapingSound();
+                    repairStage++;
                 }
                 break;
             case 2:
                 if (currentFraction > 0.8f)
                 {
                     PlayTapingSound();
-                }
-                break;
-            case 3:
-                if (currentFraction > 0.9f)
-                {
-                    PlayTapingSound();
+                    repairStage++;
                 }
                 break;
 
@@ -297,12 +293,9 @@ public class CameraLogic : MonoBehaviour
     {
         
         currentObject.animationScript.NextAnimation();
-        repairStage++;
+        
         soundManager.Taping();
-        if (repairStage > 2)
-        {
-            repairStage = 0;
-        }
+     
     }
 }
 
