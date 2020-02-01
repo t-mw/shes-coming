@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class MinigameManager : MonoBehaviour
 {
-    public MinigameDisplay display;
+    public ScoreDisplay scoreDisplay;
+    public MinigameDisplay gameDisplay;
     public bool IsComplete { get => this.sequence.IsComplete && !this.isTransitioning; }
     public float CompleteFraction { get => (float)this.sequence.currentIndex / this.sequence.keyCodes.Count; }
 
@@ -40,7 +41,7 @@ public class MinigameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.display.CompletedCount = this.sequence.currentIndex;
+        this.gameDisplay.CompletedCount = this.sequence.currentIndex;
 
         bool leftPressed = this.minigameActions.Left.WasPressed;
         bool rightPressed = this.minigameActions.Right.WasPressed;
@@ -54,13 +55,15 @@ public class MinigameManager : MonoBehaviour
                 (upPressed && this.sequence.CurrentKeyCode == KeyCode.W) ||
                 (downPressed && this.sequence.CurrentKeyCode == KeyCode.S))
             {
-                this.display.failedIndex = null;
+                this.gameDisplay.failedIndex = null;
                 this.sequence.AdvanceIndex();
             }
             else
             {
-                this.display.failedIndex = this.sequence.currentIndex;
-                this.display.CompletedCount = 0;
+                this.scoreDisplay.score -= 2;
+
+                this.gameDisplay.failedIndex = this.sequence.currentIndex;
+                this.gameDisplay.CompletedCount = 0;
 
                 this.sequence.ResetIndex();
             }
@@ -69,8 +72,10 @@ public class MinigameManager : MonoBehaviour
 
     public void EndGame()
     {
+        this.scoreDisplay.score += 10;
+
         this.isTransitioning = true;
-        this.display.FadeOut();
+        this.gameDisplay.FadeOut();
     }
 
     public void BeginGame()
@@ -78,11 +83,11 @@ public class MinigameManager : MonoBehaviour
         this.sequence.ResetIndex();
         this.sequence.Randomize();
 
-        this.display.KeyCodes = new List<KeyCode>(this.sequence.keyCodes);
-        this.display.Reset();
+        this.gameDisplay.KeyCodes = new List<KeyCode>(this.sequence.keyCodes);
+        this.gameDisplay.Reset();
 
         this.isTransitioning = false;
-        this.display.FadeIn();
+        this.gameDisplay.FadeIn();
     }
 }
 
