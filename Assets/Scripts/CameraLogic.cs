@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using InControl;
 
 public class CameraLogic : MonoBehaviour
 {
@@ -53,6 +54,7 @@ public class CameraLogic : MonoBehaviour
     public Text FinalScreenTextObject;
     public string badFinalText;
     public string goodFinalText;
+    MenuActions menuActions;
 
     private int objectsToSolveCount;
     private int solvedObjectsCount = 0;
@@ -70,6 +72,10 @@ public class CameraLogic : MonoBehaviour
         FinalScreen.SetActive(false);
         currentCamera = startCamera;
         currentCamerasNoise = currentCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+        this.menuActions = new MenuActions();
+        this.menuActions.AdvanceMenu.AddDefaultBinding(Key.Space);
+        this.menuActions.AdvanceMenu.AddDefaultBinding(InputControlType.DPadX);
     }
 
     public void GoNextObject()
@@ -130,17 +136,10 @@ public class CameraLogic : MonoBehaviour
         }
         this.isBlendComplete = isBlendComplete;
 
-        if (this.minigameManager.IsComplete)
+        if (this.minigameManager.IsComplete && !onFinalScreen)
         {
-            if (!onFinalScreen)
-            {
-                this.minigameManager.EndGame();
-                GoNextObject();
-            }
-            else
-            {
-                SceneManager.LoadScene(0);
-            }
+            this.minigameManager.EndGame();
+            GoNextObject();
         }
 
         if (freqFraction < 1)
@@ -152,6 +151,11 @@ public class CameraLogic : MonoBehaviour
         {
             amplFraction = timeFromStart / 20f;
             currentCamerasNoise.m_AmplitudeGain = Mathf.Lerp(amplStart, amplitudeGain, amplFraction);
+        }
+
+        if (this.onFinalScreen && this.menuActions.AdvanceMenu.WasPressed)
+        {
+            SceneManager.LoadScene(0);
         }
     }
 
