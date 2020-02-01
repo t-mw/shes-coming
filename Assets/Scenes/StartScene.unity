@@ -300,6 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 407285765}
+  audioMixer: {fileID: 24100000, guid: 3c7729804873f8e468132341a74b6f74, type: 2}
 --- !u!4 &407285764
 Transform:
   m_ObjectHideFlags: 0
@@ -494,10 +495,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 430958318}
   m_HandleRect: {fileID: 1831887395}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -20
+  m_MaxValue: 20
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1132,10 +1133,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1659729899}
   m_HandleRect: {fileID: 1191250457}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -20
+  m_MaxValue: 20
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
