@@ -14,6 +14,7 @@ public class CameraLogic : MonoBehaviour
 
     private CinemachineVirtualCamera currentCamera;
     private CinemachineBasicMultiChannelPerlin currentCamerasNoise;
+    private CinemachineBlend activeBlend = null;
 
     [Range(0, 30)]
     public float amplitudeGain;
@@ -46,6 +47,7 @@ public class CameraLogic : MonoBehaviour
     private int solvedObjectsCount = 0;
 
     private bool onFinalScreen = false;
+    private bool isBlendComplete = false;
 
     private void Start()
     {
@@ -55,7 +57,6 @@ public class CameraLogic : MonoBehaviour
         FinalScreen.SetActive(false);
         currentCamera = startCamera;
         currentCamerasNoise = currentCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-
     }
 
     public void GoNextObject()
@@ -91,12 +92,23 @@ public class CameraLogic : MonoBehaviour
             FinalScreenOn();
         }
 
+        if (this.cameraBrain.ActiveBlend != null)
+        {
+            this.activeBlend = this.cameraBrain.ActiveBlend;
+        }
+        var isBlendComplete = this.activeBlend != null && this.activeBlend.IsComplete;
+        if (isBlendComplete && !this.isBlendComplete)
+        {
+            this.NextObjectReachedOn();
+        }
+        this.isBlendComplete = isBlendComplete;
 
         if (this.minigameManager.IsComplete)
         {
             if (!onFinalScreen)
             {
-                this.minigameManager.Reset();
+                this.minigameManager.BeginTransition();
+
                 GoNextObject();
                 solvedObjectsCount++;
             }
@@ -116,7 +128,11 @@ public class CameraLogic : MonoBehaviour
             amplFraction = timeFromStart / 20f;
             currentCamerasNoise.m_AmplitudeGain = Mathf.Lerp(amplStart, amplitudeGain, amplFraction);
         }
+    }
 
+    public void NextObjectReachedOn()
+    {
+        this.minigameManager.EndTransition();
     }
 
     public void FinalScreenOn()
@@ -134,6 +150,4 @@ public class CameraLogic : MonoBehaviour
 
         FinalScreen.SetActive(true);
     }
-
-
 }

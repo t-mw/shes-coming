@@ -5,9 +5,10 @@ using UnityEngine;
 public class MinigameManager : MonoBehaviour
 {
     public MinigameDisplay display;
-    public bool IsComplete { get => this.sequence.IsComplete; }
+    public bool IsComplete { get => this.sequence.IsComplete && !this.isTransitioning; }
 
     Sequence sequence = new Sequence();
+    bool isTransitioning = false;
 
     // Start is called before the first frame update
     void Start()
@@ -50,10 +51,19 @@ public class MinigameManager : MonoBehaviour
         }
     }
 
-    public void Reset()
+    public void BeginTransition()
+    {
+        this.isTransitioning = true;
+        this.display.FadeOut();
+    }
+
+    public void EndTransition()
     {
         this.sequence.ResetIndex();
         this.display.Reset();
+
+        this.isTransitioning = false;
+        this.display.FadeIn();
     }
 }
 

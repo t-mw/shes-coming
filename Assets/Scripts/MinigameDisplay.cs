@@ -50,22 +50,47 @@ public class MinigameDisplay : MonoBehaviour
             minigameDot.text = keyCode.ToString();
             if (i == this.failedIndex)
             {
-                minigameDot.state = MinigameDotState.Failed;
+                minigameDot.State = MinigameDotState.Failed;
             }
             else if (i < this.CompletedCount)
             {
-                minigameDot.state = MinigameDotState.Passed;
+                minigameDot.State = MinigameDotState.Passed;
             }
             else
             {
-                minigameDot.state = MinigameDotState.Normal;
+                minigameDot.State = MinigameDotState.Normal;
             }
         }
     }
 
+    public void FadeIn()
+    {
+        foreach (var obj in this.dotObjects)
+        {
+            obj.GetComponent<MinigameDot>().FadeOut = false;
+        }
+    }
+
+    public void FadeOut()
+    {
+        foreach (var obj in this.dotObjects)
+        {
+            obj.GetComponent<MinigameDot>().FadeOut = true;
+        }
+    }
+
+    void Clear()
+    {
+        foreach (var obj in this.dotObjects)
+        {
+            Destroy(obj);
+        }
+        this.dotObjects.Clear();
+    }
+
     public void Reset()
     {
-        this.dotObjects.Clear();
+        this.Clear();
 
         for (var i = 0; i < this.KeyCodes.Count; i++)
         {
