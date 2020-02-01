@@ -99,6 +99,8 @@ public class CameraLogic : MonoBehaviour
 
         timeFromStart = Time.time - timeOnStart;
 
+        currentObject.animationScript.SetGameProgress(minigameManager.CompleteFraction);
+
         if (!onFinalScreen)
         {
             if (timeFromStart <= 20f)
