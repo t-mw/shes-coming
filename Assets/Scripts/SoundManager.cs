@@ -6,7 +6,9 @@ using FMODUnity;
 public class SoundManager : MonoBehaviour
 {
     public StudioEventEmitter emitter;
-    public string taping;
+    public string taping = "event:/GameTrack";
+    public string failure;
+    public string walking;
 
     public void PlayOneShotSfx(string _eventName)
     {
@@ -59,4 +61,11 @@ public class SoundManager : MonoBehaviour
     {
         PlayOneShotSfx(taping);
     }
+
+    public void PlayFailure()
+    {
+        PlayOneShotSfx(failure);
+    }
+
+   
 }
