@@ -6,6 +6,7 @@ using FMODUnity;
 public class SoundManager : MonoBehaviour
 {
     public StudioEventEmitter emitter;
+    public string taping;
 
     public void PlayOneShotSfx(string _eventName)
     {
@@ -54,4 +55,8 @@ public class SoundManager : MonoBehaviour
         emitter.Stop();
     }
 
+    public void PlayTape()
+    {
+        PlayOneShotSfx(taping);
+    }
 }
