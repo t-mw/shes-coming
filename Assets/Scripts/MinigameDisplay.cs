@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -67,7 +67,7 @@ public class MinigameDisplay : MonoBehaviour
     {
         foreach (var obj in this.dotObjects)
         {
-            obj.GetComponent<MinigameDot>().FadeOut = false;
+            obj.GetComponent<MinigameDot>().FadeIn();
         }
     }
 
@@ -75,7 +75,7 @@ public class MinigameDisplay : MonoBehaviour
     {
         foreach (var obj in this.dotObjects)
         {
-            obj.GetComponent<MinigameDot>().FadeOut = true;
+            obj.GetComponent<MinigameDot>().FadeOut();
         }
     }
 

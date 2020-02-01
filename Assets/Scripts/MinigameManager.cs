@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +15,7 @@ public class MinigameManager : MonoBehaviour
     {
         this.display.KeyCodes = new List<KeyCode>(this.sequence.keyCodes);
         this.display.Reset();
+        this.display.FadeIn();
     }
 
     // Update is called once per frame
