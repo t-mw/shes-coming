@@ -42,6 +42,8 @@ public class Animation : MonoBehaviour
     {
         if (onPlayback && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.1f)
         {
+            anim.SetFloat("animSpeed", 0f);
+            anim.enabled = false;
             onPlayback = false;
         }
     }
