@@ -115,7 +115,7 @@ public class MinigameDisplay : MonoBehaviour
             dot.name = "dot";
             dot.transform.SetParent(this.TargetCanvas.transform, false);
 
-            var width = 500.0f;
+            var width = 700.0f;
             var x = this.KeyCodes.Count > 1 ?
                 (-0.5f * width + ((float)i / (this.KeyCodes.Count - 1)) * width) :
                 0.0f;
