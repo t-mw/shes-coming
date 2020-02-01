@@ -6,6 +6,7 @@ public class MinigameDisplay : MonoBehaviour
 {
     public GameObject TargetCanvas;
     public GameObject DotPrefab;
+    public GameObject DotBackgroundPrefab;
 
     public List<KeyCode> KeyCodes
     {
@@ -30,6 +31,10 @@ public class MinigameDisplay : MonoBehaviour
     public bool regenerate = false;
 
     List<GameObject> dotObjects = new List<GameObject>();
+    GameObject backgroundObject;
+
+    private bool fadeIn = false;
+    public float? fadeTime = null;
 
     // Start is called before the first frame update
     void Start()
@@ -85,10 +90,20 @@ public class MinigameDisplay : MonoBehaviour
         }
 
         this.UpdatePositions();
+
+        if (this.backgroundObject != null)
+        {
+            var backgroundImage = this.backgroundObject.GetComponent<UnityEngine.UI.Image>();
+            var alpha = 0.5f * Utility.CalculateFade(this.fadeTime, 0.3f, this.fadeIn);
+            backgroundImage.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+        }
     }
 
     public void FadeIn()
     {
+        this.fadeIn = true;
+        this.fadeTime = Time.time;
+
         foreach (var obj in this.dotObjects)
         {
             obj.GetComponent<MinigameDot>().FadeIn();
@@ -97,6 +112,9 @@ public class MinigameDisplay : MonoBehaviour
 
     public void FadeOut()
     {
+        this.fadeIn = false;
+        this.fadeTime = Time.time;
+
         foreach (var obj in this.dotObjects)
         {
             obj.GetComponent<MinigameDot>().FadeOut();
@@ -141,14 +159,18 @@ public class MinigameDisplay : MonoBehaviour
 
     public void Recreate()
     {
+        var background = GameObject.Instantiate(this.DotBackgroundPrefab);
+        background.transform.SetParent(this.TargetCanvas.transform, false);
+        this.backgroundObject = background;
+
         this.Clear();
 
         for (var i = 0; i < this.KeyCodes.Count; i++)
         {
-            var obj = GameObject.Instantiate(this.DotPrefab);
-            obj.name = "dot";
-            obj.transform.SetParent(this.TargetCanvas.transform, false);
-            this.dotObjects.Add(obj);
+            var dot = GameObject.Instantiate(this.DotPrefab);
+            dot.name = "dot";
+            dot.transform.SetParent(this.TargetCanvas.transform, false);
+            this.dotObjects.Add(dot);
         }
     }
 }

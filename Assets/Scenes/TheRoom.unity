@@ -1223,7 +1223,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 622618442}
-  m_LocalRotation: {x: 0.22387584, y: 0.20153865, z: -0.047375925, w: 0.9523746}
+  m_LocalRotation: {x: 0.2238758, y: 0.20153861, z: -0.04737591, w: 0.9523746}
   m_LocalPosition: {x: -1.6, y: -0.2, z: 4.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2166,6 +2166,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetCanvas: {fileID: 1440765492}
   DotPrefab: {fileID: 4030709833449358561, guid: 92668e648b88640a197dd4cbd11c729e,
+    type: 3}
+  DotBackgroundPrefab: {fileID: 218388299411345790, guid: 7ed4c6b6aa674476c95fbfc780311287,
     type: 3}
   regenerate: 0
 --- !u!114 &1435164695
