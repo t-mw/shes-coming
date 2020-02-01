@@ -40,8 +40,6 @@ public class Animation : MonoBehaviour
     public void PlaybackOff()
     {
         onPlayback = false;
-        anim.SetFloat("animSpeed", 1f);
-        anim.enabled = false;
     }
 
 
