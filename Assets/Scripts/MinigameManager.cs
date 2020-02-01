@@ -43,6 +43,11 @@ public class MinigameManager : MonoBehaviour
     {
         this.gameDisplay.CompletedCount = this.sequence.currentIndex;
 
+        if (this.isTransitioning)
+        {
+            return;
+        }
+
         bool leftPressed = this.minigameActions.Left.WasPressed;
         bool rightPressed = this.minigameActions.Right.WasPressed;
         bool upPressed = this.minigameActions.Up.WasPressed;
