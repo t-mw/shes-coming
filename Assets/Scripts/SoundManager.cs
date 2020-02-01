@@ -28,6 +28,7 @@ public class SoundManager : MonoBehaviour
         if (CheckEventFMOD(_eventName))
         {
             emitter.Event = _eventName;
+            
             emitter.Play();
         }
         else
@@ -67,5 +68,12 @@ public class SoundManager : MonoBehaviour
         PlayOneShotSfx(failure);
     }
 
-   
+   public void WalkingOn()
+    {
+        PlayLoopedSFX(walking);
+    }
+    public void WalkingOff()
+    {
+        emitter.Stop();
+    }
 }

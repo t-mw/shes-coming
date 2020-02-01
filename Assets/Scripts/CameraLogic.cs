@@ -7,9 +7,20 @@ using UnityEngine.UI;
 
 public class CameraLogic : MonoBehaviour
 {
+
+    [System.Serializable]
+    public struct PlayableObject
+    {
+        public string objectID;
+        public CinemachineVirtualCamera virtualCamera;
+        public Animation animationScript;
+    }
+
+    public List<PlayableObject> playableObjects;
+    private PlayableObject currentObject;
+
     [Header("CAMERAS STUFF")]
     public CinemachineBrain cameraBrain;
-    public List<CinemachineVirtualCamera> virtualCameras;
     public CinemachineVirtualCamera startCamera;
 
     private CinemachineVirtualCamera currentCamera;
@@ -51,7 +62,9 @@ public class CameraLogic : MonoBehaviour
 
     private void Start()
     {
-        objectsToSolveCount = virtualCameras.Count;
+        currentObject = playableObjects[0];
+
+        objectsToSolveCount = playableObjects.Count-1;
         timeOnStart = Time.time;
         TimerImage.fillAmount = 0f;
         FinalScreen.SetActive(false);
@@ -61,19 +74,22 @@ public class CameraLogic : MonoBehaviour
 
     public void GoNextObject()
     {
-        if (virtualCameras.Count > 1)
+        if (playableObjects.Count > 1)
         {
-            virtualCameras.Remove(currentCamera);
+            playableObjects.Remove(currentObject);
             cameraBrain.ActiveVirtualCamera.Priority = 0;
 
-            int nextCameraIndex = Random.Range(0, virtualCameras.Count);
-            virtualCameras[nextCameraIndex].Priority = 10;
+            int nextObjectIndex = Random.Range(0, playableObjects.Count);
+            playableObjects[nextObjectIndex].virtualCamera.Priority = 10;
 
-            currentCamera = virtualCameras[nextCameraIndex];
+            currentCamera = playableObjects[nextObjectIndex].virtualCamera;
             currentCamerasNoise = currentCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+            currentObject = playableObjects[nextObjectIndex];
         }
         else
         {
+            onFinalScreen = true;
             FinalScreenOn();
         }
     }
@@ -83,13 +99,17 @@ public class CameraLogic : MonoBehaviour
 
         timeFromStart = Time.time - timeOnStart;
 
-        if (timeFromStart <= 20f)
+        if (!onFinalScreen)
         {
-            TimerImage.fillAmount = timeFromStart / 20f;
-        }
-        else
-        {
-            FinalScreenOn();
+            if (timeFromStart <= 20f)
+            {
+                TimerImage.fillAmount = timeFromStart / 20f;
+            }
+            else
+            {
+                onFinalScreen = true;
+                FinalScreenOn();
+            }
         }
 
         if (this.cameraBrain.ActiveBlend != null)
@@ -137,8 +157,8 @@ public class CameraLogic : MonoBehaviour
 
     public void FinalScreenOn()
     {
-        onFinalScreen = true;
 
+        this.minigameManager.EndGame();
         if (solvedObjectsCount == objectsToSolveCount)
         {
             FinalScreenTextObject.text = goodFinalText.Replace("\\n", "\n");
