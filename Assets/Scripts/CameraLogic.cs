@@ -258,7 +258,7 @@ public class CameraLogic : MonoBehaviour
 
             
         }
-        Debug.Log(currentFraction);
+      
         switch (repairStage)
         {
             

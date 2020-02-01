@@ -32,9 +32,9 @@ public class Animation : MonoBehaviour
        
             anim.SetFloat("animSpeed", 0f);
             anim.enabled = false;
-
+            Debug.Log("zero");
         }
-        Debug.Log("zero");
+       
 
     }
     public void PlaybackOff()
