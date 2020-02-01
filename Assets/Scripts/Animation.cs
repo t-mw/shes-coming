@@ -37,6 +37,17 @@ public class Animation : MonoBehaviour
        
 
     }
+
+    private void Update()
+    {
+        if (onPlayback && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.1f)
+        {
+            onPlayback = false;
+        }
+    }
+
+
+
     public void PlaybackOff()
     {
         onPlayback = false;
