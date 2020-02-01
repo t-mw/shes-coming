@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MinigameDisplay : MonoBehaviour
 {
-    public GameObject TargetCanvas;
+    public GameObject UIParent;
     public GameObject DotPrefab;
     public GameObject DotBackgroundPrefab;
 
@@ -160,7 +160,7 @@ public class MinigameDisplay : MonoBehaviour
     public void Recreate()
     {
         var background = GameObject.Instantiate(this.DotBackgroundPrefab);
-        background.transform.SetParent(this.TargetCanvas.transform, false);
+        background.transform.SetParent(this.UIParent.transform, false);
         this.backgroundObject = background;
 
         this.Clear();
@@ -169,7 +169,7 @@ public class MinigameDisplay : MonoBehaviour
         {
             var dot = GameObject.Instantiate(this.DotPrefab);
             dot.name = "dot";
-            dot.transform.SetParent(this.TargetCanvas.transform, false);
+            dot.transform.SetParent(this.UIParent.transform, false);
             this.dotObjects.Add(dot);
         }
     }
