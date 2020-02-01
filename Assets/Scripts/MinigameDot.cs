@@ -59,7 +59,7 @@ public class MinigameDot : MonoBehaviour
         boopScaleLerp *= boopScaleLerp;
 
         float scale = 1.0f + 0.4f * Mathf.Lerp(0.0f, 1.0f, boopScaleLerp);
-        this.transform.localScale = new Vector3(scale, scale, scale);
+        this.transform.localScale = new Vector3(scale, scale, 1.0f);
 
         switch (this.arrowOrientation)
         {
