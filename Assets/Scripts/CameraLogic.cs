@@ -181,15 +181,24 @@ public class CameraLogic : MonoBehaviour
                 GoNextObject();
             }
 
-            if (freqFraction < 1)
+            if (this.onFinalScreen)
             {
-                freqFraction = timeFromStart / 20f;
-                currentCamerasNoise.m_FrequencyGain = Mathf.Lerp(freqStart, frequencyGain, freqFraction);
+                currentCamerasNoise.m_FrequencyGain = freqStart;
+                currentCamerasNoise.m_AmplitudeGain = amplStart;
+
             }
-            if (amplFraction < 1)
+            else
             {
-                amplFraction = timeFromStart / 20f;
-                currentCamerasNoise.m_AmplitudeGain = Mathf.Lerp(amplStart, amplitudeGain, amplFraction);
+                if (freqFraction < 1)
+                {
+                    freqFraction = timeFromStart / 20f;
+                    currentCamerasNoise.m_FrequencyGain = Mathf.Lerp(freqStart, frequencyGain, freqFraction);
+                }
+                if (amplFraction < 1)
+                {
+                    amplFraction = timeFromStart / 20f;
+                    currentCamerasNoise.m_AmplitudeGain = Mathf.Lerp(amplStart, amplitudeGain, amplFraction);
+                }
             }
 
             if (this.onFinalScreen && this.menuActions.AdvanceMenu.WasPressed)
