@@ -2098,6 +2098,11 @@ PrefabInstance:
       propertyPath: maxTime
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5574726290089987063, guid: cc60dce960f0033408cab3a385d274b4,
+        type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc60dce960f0033408cab3a385d274b4, type: 3}
 --- !u!1 &687607545 stripped
@@ -3072,7 +3077,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 42648f589fcb1794a8f5fb6dfb8230d4, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5509,7 +5514,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2014171476}
-  m_LocalRotation: {x: -0.060997486, y: 0.9380972, z: -0.26142573, w: -0.21888277}
+  m_LocalRotation: {x: -0.060997475, y: 0.9380972, z: -0.26142573, w: -0.21888275}
   m_LocalPosition: {x: -3.331, y: 2.178, z: -1.815}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
