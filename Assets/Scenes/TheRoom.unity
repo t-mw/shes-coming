@@ -5214,7 +5214,7 @@ MonoBehaviour:
   badFinalText: Your time is out. \nYour mom is not happy!
   goodFinalText: Wowser! You "repaired" everything!
   repairStage: 0
-  startGame: 1
+  startGame: 0
 --- !u!4 &2054534721
 Transform:
   m_ObjectHideFlags: 0
