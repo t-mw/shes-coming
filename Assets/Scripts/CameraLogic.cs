@@ -171,7 +171,7 @@ public class CameraLogic : MonoBehaviour
                 this.activeBlend = this.cameraBrain.ActiveBlend;
             }
             var isBlendComplete = this.activeBlend != null && this.activeBlend.IsComplete;
-            if (isBlendComplete && !this.isBlendComplete)
+            if (isBlendComplete && !this.isBlendComplete && !this.onFinalScreen)
             {
                 this.NextObjectReachedOn();
             }
@@ -272,10 +272,6 @@ public class CameraLogic : MonoBehaviour
                 repairStage = 0;
                 Debug.Log("wrong button");
             }
-
-
-
-
         }
 
         switch (repairStage)
