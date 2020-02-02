@@ -272,6 +272,7 @@ public class CameraLogic : MonoBehaviour
             {
                 currentObject.animationScript.PlayBackAnimation();
                 repairStage = 0;
+                soundManager.Crashing();
                 Debug.Log("wrong button");
             }
         }
