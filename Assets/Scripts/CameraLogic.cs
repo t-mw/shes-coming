@@ -230,10 +230,12 @@ public class CameraLogic : MonoBehaviour
         this.EndGame();
         if (solvedObjectsCount == objectsToSolveCount)
         {
+            StartCoroutine(Utility.DelaySeconds(() => this.soundManager.GoodEnd(), 1.5f));
             FinalScreenDescriptionTextObject.text = goodFinalText.Replace("\\n", "\n");
         }
         else
         {
+            StartCoroutine(Utility.DelaySeconds(() => this.soundManager.BadEnd(), 1.5f));
             FinalScreenDescriptionTextObject.text = badFinalText.Replace("\\n", "\n");
         }
 

@@ -172,9 +172,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   yourFace: {fileID: 24724739}
   time: 0
-  switchSpristeTime: 0.25
-  rot1: 1
-  rot2: 1
+  switchSpriteTime: 0.3
+  rot1: 2
+  rot2: 2
 --- !u!114 &24724739
 MonoBehaviour:
   m_ObjectHideFlags: 0
