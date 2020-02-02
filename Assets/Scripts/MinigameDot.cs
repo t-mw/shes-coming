@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MinigameDotState { Normal, Passed, Failed }
+public enum MinigameDotState { Normal, Passed }
 public enum ArrowOrientation { Left, Right, Up, Down }
 
 public class MinigameDot : MonoBehaviour
@@ -71,18 +71,16 @@ public class MinigameDot : MonoBehaviour
     void UpdateColors()
     {
         {
+            float darken = this.alpha < 1.0f ? 0.5f : 1.0f;
+
             var image = this.Circle.GetComponent<UnityEngine.UI.Image>();
             if (this.state == MinigameDotState.Normal)
             {
-                image.color = new Color(1.0f, 1.0f, 1.0f, this.GetColorAlpha());
+                image.color = new Color(darken * 1.0f, darken * 1.0f, darken * 1.0f, this.GetColorAlpha());
             }
             else if (this.state == MinigameDotState.Passed)
             {
-                image.color = new Color(0.0f, 1.0f, 0.0f, this.GetColorAlpha());
-            }
-            else if (this.state == MinigameDotState.Failed)
-            {
-                image.color = new Color(1.0f, 0.0f, 0.0f, this.GetColorAlpha());
+                image.color = new Color(0.0f, darken * 1.0f, 0.0f, this.GetColorAlpha());
             }
         }
 
