@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 
 class Utility
 {
@@ -33,5 +35,11 @@ class Utility
                 return 0.0f;
             }
         }
+    }
+
+    public static IEnumerator DelaySeconds(Action action, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        action();
     }
 }
