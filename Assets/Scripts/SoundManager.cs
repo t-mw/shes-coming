@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour
 {
     public AudioSource audioS;
     public AudioClip[] taping;
+    public AudioClip crashing;
 
     public void Taping()
     {
@@ -14,5 +15,13 @@ public class SoundManager : MonoBehaviour
         audioS.clip = taping[rand];
         audioS.Play();
     }
-  
+
+    public void Crashing()
+    {
+        if (crashing != null)
+        {
+            audioS.clip = crashing;
+            audioS.Play();
+        }
+    }
 }
