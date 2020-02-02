@@ -5,6 +5,7 @@ using Cinemachine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using InControl;
+using UnityEngine.Playables;
 
 public class CameraLogic : MonoBehaviour
 {
@@ -51,6 +52,7 @@ public class CameraLogic : MonoBehaviour
 
     [Header("TIMER STUFF")]
     public Image TimerImage;
+    public PlayableDirector EndTimeline;
 
     [Header("MINIGAME STUFF")]
     public MinigameManager minigameManager;
@@ -223,6 +225,8 @@ public class CameraLogic : MonoBehaviour
 
     public void FinalScreenOn()
     {
+        this.EndTimeline.Play();
+
         this.EndGame();
         if (solvedObjectsCount == objectsToSolveCount)
         {
