@@ -2820,7 +2820,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 6ad7ea223b641b443a39d78337649148, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3235,6 +3235,11 @@ PrefabInstance:
     - target: {fileID: 5574726290089987060, guid: cc60dce960f0033408cab3a385d274b4,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5574726290089987063, guid: cc60dce960f0033408cab3a385d274b4,
+        type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[0].value
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
