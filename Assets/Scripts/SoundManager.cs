@@ -7,7 +7,9 @@ public class SoundManager : MonoBehaviour
 {
     public AudioSource audioS;
     public AudioClip[] taping;
-    public AudioClip crashing;
+    public AudioClip[] crashing;
+    public AudioClip[] happyEnding;
+    public AudioClip[] badEnding;
 
     public void Taping()
     {
@@ -18,10 +20,24 @@ public class SoundManager : MonoBehaviour
 
     public void Crashing()
     {
-        if (crashing != null)
-        {
-            audioS.clip = crashing;
-            audioS.Play();
-        }
+        int rand = Random.Range(0, taping.Length);
+        audioS.clip = crashing[rand];
+        audioS.Play();
+    }
+
+    public void GoodEnd()
+    {
+        int rand = Random.Range(0, taping.Length);
+        audioS.clip = happyEnding[rand];
+        audioS.Play();
+    }
+    public void BadEnd()
+    {
+        int rand = Random.Range(0, taping.Length);
+        audioS.clip = badEnding[rand];
+        audioS.Play();
     }
 }
+
+
+
