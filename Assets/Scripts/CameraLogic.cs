@@ -26,6 +26,7 @@ public class CameraLogic : MonoBehaviour
     public SoundManager soundManager;
     private bool wasOnTapeSFX = false;
     private float currentFraction = 0f;
+    public AudioSource music;
 
     [Header("CAMERAS STUFF")]
     public CinemachineBrain cameraBrain;
@@ -104,6 +105,7 @@ public class CameraLogic : MonoBehaviour
     {
         startGame = true;
         isBlendComplete = true;
+        this.music.Play();
     }
 
     public void GoNextObject()
