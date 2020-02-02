@@ -23,6 +23,21 @@ public class SoundManager : MonoBehaviour
         int rand = Random.Range(0, taping.Length);
         audioS.clip = crashing[rand];
         audioS.Play();
-        }
     }
+
+    public void GoodEnd()
+    {
+        int rand = Random.Range(0, taping.Length);
+        audioS.clip = happyEnding[rand];
+        audioS.Play();
+    }
+    public void BadEnd()
+    {
+        int rand = Random.Range(0, taping.Length);
+        audioS.clip = badEnding[rand];
+        audioS.Play();
+    }
+}
+
+
 
