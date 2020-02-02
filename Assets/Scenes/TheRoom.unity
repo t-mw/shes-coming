@@ -4260,15 +4260,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playableObjects:
-  - objectID: Sphere
+  - objectID: Lamp
     virtualCamera: {fileID: 244520178}
     animationScript: {fileID: 487195702}
+    repairImage: {fileID: 1677673681}
   - objectID: Vase
     virtualCamera: {fileID: 2014171478}
     animationScript: {fileID: 1486729549}
-  - objectID: Cube
+    repairImage: {fileID: 1525196614}
+  - objectID: TV
     virtualCamera: {fileID: 622618444}
     animationScript: {fileID: 374488461}
+    repairImage: {fileID: 420695659}
   soundManager: {fileID: 1658783863}
   cameraBrain: {fileID: 979872810}
   startCamera: {fileID: 130846919}
@@ -4474,6 +4477,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3b78bdffda1ea4d7bb4bba86ea4b5492, type: 2}
+    - target: {fileID: -3990036101274998414, guid: eb6cabf9d607f409f8cfe3b2be28a1d2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: eb6cabf9d607f409f8cfe3b2be28a1d2,
         type: 3}
       propertyPath: m_Name

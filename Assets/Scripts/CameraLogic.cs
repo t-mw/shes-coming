@@ -15,6 +15,7 @@ public class CameraLogic : MonoBehaviour
         public string objectID;
         public CinemachineVirtualCamera virtualCamera;
         public Animation animationScript;
+        public Image repairImage;
     }
 
     public List<PlayableObject> playableObjects;
@@ -74,7 +75,7 @@ public class CameraLogic : MonoBehaviour
     private void Start()
     {
         currentObject = playableObjects[0];
-        
+
 
         objectsToSolveCount = playableObjects.Count;
 
@@ -138,7 +139,7 @@ public class CameraLogic : MonoBehaviour
             }
             timeFromStart = Time.time - timeOnStart;
 
-            
+
 
             if (this.minigameManager.IsComplete)
             {
@@ -176,8 +177,7 @@ public class CameraLogic : MonoBehaviour
 
             if (this.minigameManager.IsComplete && !onFinalScreen)
             {
-                repairStage = 0;
-                this.minigameManager.EndGame();
+                this.EndGame();
                 GoNextObject();
             }
 
@@ -205,7 +205,7 @@ public class CameraLogic : MonoBehaviour
             {
                 SceneManager.LoadScene(0);
             }
-            
+
         }
     }
 
@@ -214,10 +214,16 @@ public class CameraLogic : MonoBehaviour
         this.minigameManager.BeginGame();
     }
 
+    void EndGame()
+    {
+        repairStage = 0;
+        this.minigameManager.EndGame();
+        this.currentObject.repairImage.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+    }
+
     public void FinalScreenOn()
     {
-
-        this.minigameManager.EndGame();
+        this.EndGame();
         if (solvedObjectsCount == objectsToSolveCount)
         {
             FinalScreenDescriptionTextObject.text = goodFinalText.Replace("\\n", "\n");
@@ -263,14 +269,14 @@ public class CameraLogic : MonoBehaviour
                 Debug.Log("wrong button");
             }
 
-           
 
-            
+
+
         }
-      
+
         switch (repairStage)
         {
-            
+
             case 0:
                 if (currentFraction > 0.3f)
                 {
@@ -300,11 +306,11 @@ public class CameraLogic : MonoBehaviour
 
     public void PlayTapingSound()
     {
-        
+
         currentObject.animationScript.NextAnimation();
-        
+
         soundManager.Taping();
-     
+
     }
 }
 
