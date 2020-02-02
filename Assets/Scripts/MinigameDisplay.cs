@@ -94,8 +94,11 @@ public class MinigameDisplay : MonoBehaviour
         if (this.backgroundObject != null)
         {
             var backgroundImage = this.backgroundObject.GetComponent<UnityEngine.UI.Image>();
-            var alpha = 0.5f * Utility.CalculateFade(this.fadeTime, 0.3f, this.fadeIn);
-            backgroundImage.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+            var alpha = 0.75f * Utility.CalculateFade(this.fadeTime, 0.3f, this.fadeIn);
+
+            var color = backgroundImage.color;
+            color.a = alpha;
+            backgroundImage.color = color;
         }
     }
 
