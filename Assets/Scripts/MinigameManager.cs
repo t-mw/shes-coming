@@ -9,6 +9,7 @@ public class MinigameManager : MonoBehaviour
     public MinigameDisplay gameDisplay;
     public bool IsComplete { get => this.sequence.IsComplete && !this.isTransitioning; }
     public float CompleteFraction { get => (float)this.sequence.currentIndex / this.sequence.keyCodes.Count; }
+    public int RemainingCount { get => this.sequence.keyCodes.Count - this.sequence.currentIndex; }
 
     int stage = 0;
     Sequence sequence = new Sequence();
