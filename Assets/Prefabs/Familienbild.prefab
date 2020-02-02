@@ -1557,6 +1557,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TAPED
       objectReference: {fileID: 0}
+    - target: {fileID: 7091005755602099068, guid: 6c1f381621915a54497120e0d07cdcc5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8008626411951422705, guid: 6c1f381621915a54497120e0d07cdcc5,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

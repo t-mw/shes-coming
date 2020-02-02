@@ -1229,7 +1229,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 622618442}
-  m_LocalRotation: {x: 0.2238758, y: 0.20153861, z: -0.04737591, w: 0.9523746}
+  m_LocalRotation: {x: 0.22387584, y: 0.20153865, z: -0.047375925, w: 0.9523746}
   m_LocalPosition: {x: -1.6, y: -0.2, z: 4.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3369,12 +3369,15 @@ MonoBehaviour:
   - objectID: Sphere
     virtualCamera: {fileID: 244520178}
     animationScript: {fileID: 4538347011676249047}
+    repairImage: {fileID: 0}
   - objectID: Vase
     virtualCamera: {fileID: 2014171478}
     animationScript: {fileID: 1486729549}
+    repairImage: {fileID: 0}
   - objectID: Cube
     virtualCamera: {fileID: 622618444}
     animationScript: {fileID: 374488461}
+    repairImage: {fileID: 0}
   soundManager: {fileID: 1658783863}
   cameraBrain: {fileID: 979872810}
   startCamera: {fileID: 130846919}
@@ -3383,6 +3386,7 @@ MonoBehaviour:
   frequencyGain: 0.1
   frequencySpeed: 0.5
   TimerImage: {fileID: 2002145041}
+  EndTimeline: {fileID: 0}
   minigameManager: {fileID: 1435164695}
   FinalScreen: {fileID: 1227622655}
   FinalScreenDescriptionTextObject: {fileID: 1913950408}
@@ -3596,6 +3600,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1925253745182873630, guid: 335f00ccc7e75e44f948e8e73e3333a2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5003013259917211665, guid: 335f00ccc7e75e44f948e8e73e3333a2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3739,6 +3748,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 60610494551774388, guid: 02045643af2493b468e92538e271b498,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1896880562872845685, guid: 02045643af2493b468e92538e271b498,
         type: 3}
       propertyPath: m_Name
