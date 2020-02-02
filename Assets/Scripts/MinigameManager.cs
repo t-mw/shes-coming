@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class MinigameManager : MonoBehaviour
 {
-    public ScoreDisplay scoreDisplay;
     public MinigameDisplay gameDisplay;
     public bool IsComplete { get => this.sequence.IsComplete && !this.isTransitioning; }
     public float CompleteFraction { get => (float)this.sequence.currentIndex / this.sequence.keyCodes.Count; }
@@ -64,7 +63,6 @@ public class MinigameManager : MonoBehaviour
             }
             else
             {
-                this.scoreDisplay.score -= 2;
                 this.gameDisplay.Reset();
 
                 this.sequence.ResetIndex();
@@ -74,8 +72,6 @@ public class MinigameManager : MonoBehaviour
 
     public void EndGame()
     {
-        this.scoreDisplay.score += 10;
-
         this.isTransitioning = true;
         this.gameDisplay.FadeOut();
     }
