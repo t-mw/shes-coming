@@ -51,6 +51,13 @@ public class Animation : MonoBehaviour
             anim.enabled = false;
             onPlayback = false;
         }
+        if (!onPlayback && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.8f)
+        {
+            if (tapedEffect != null)
+            {
+                tapedEffect.SetActive(true);
+            }
+        }
     }
 
 
@@ -88,5 +95,9 @@ public class Animation : MonoBehaviour
         onPlayback = true;
         anim.enabled = true;
         anim.SetFloat("animSpeed", -2f);
+        if (tapedEffect != null)
+        {
+            tapedEffect.SetActive(false);
+        }
     }
 }

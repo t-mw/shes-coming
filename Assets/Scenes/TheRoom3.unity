@@ -374,7 +374,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244520176}
-  m_LocalRotation: {x: 0.29038745, y: -0.39871052, z: 0.1347238, w: 0.859392}
+  m_LocalRotation: {x: 0.29038748, y: -0.39871055, z: 0.13472383, w: 0.859392}
   m_LocalPosition: {x: -1.6, y: 1, z: 2.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1229,7 +1229,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 622618442}
-  m_LocalRotation: {x: 0.2238758, y: 0.20153861, z: -0.04737591, w: 0.9523746}
+  m_LocalRotation: {x: 0.22387584, y: 0.20153865, z: -0.047375925, w: 0.9523746}
   m_LocalPosition: {x: -1.6, y: -0.2, z: 4.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1770,7 +1770,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979872806}
-  m_LocalRotation: {x: 0.36102563, y: 0.4647243, z: -0.21528617, w: 0.7793226}
+  m_LocalRotation: {x: 0.36102563, y: 0.46472427, z: -0.21528615, w: 0.7793226}
   m_LocalPosition: {x: 3.4085085, y: 3.065538, z: -2.501121}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2705,6 +2705,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 20084a26fb10fa546810d6b86b725c1c, type: 3}
   - {fileID: 8300000, guid: 59b32f9768873784c9037369125bfbc4, type: 3}
   - {fileID: 8300000, guid: fa7cf1a3a21f6754e8be23c121f9446a, type: 3}
+  crashing: []
 --- !u!4 &1658783864
 Transform:
   m_ObjectHideFlags: 0
@@ -3257,7 +3258,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2014171476}
-  m_LocalRotation: {x: 0.36102563, y: 0.4647243, z: -0.21528617, w: 0.7793226}
+  m_LocalRotation: {x: 0.36102563, y: 0.46472427, z: -0.21528615, w: 0.7793226}
   m_LocalPosition: {x: 3.5, y: 0, z: 0.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3363,7 +3364,7 @@ MonoBehaviour:
   - objectID: Sphere
     virtualCamera: {fileID: 244520178}
     animationScript: {fileID: 4538347011676249047}
-    repairImage: {fileID: 0}
+    repairImage: {fileID: 1752641009}
   - objectID: Vase
     virtualCamera: {fileID: 2014171478}
     animationScript: {fileID: 1486729549}
