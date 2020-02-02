@@ -25,7 +25,6 @@ public class CameraLogic : MonoBehaviour
     [Header("SOUND STUFF")]
     public SoundManager soundManager;
     private bool wasOnTapeSFX = false;
-    private float currentFraction = 0f;
     public AudioSource music;
 
     [Header("CAMERAS STUFF")]
@@ -153,7 +152,6 @@ public class CameraLogic : MonoBehaviour
             if (!onFinalScreen)
             {
                 timeFromStart = Time.time - timeOnStart;
-                currentFraction = minigameManager.CompleteFraction;
 
                 if (this.cameraBrain.ActiveBlend == null) TapingSound();
 
@@ -266,6 +264,8 @@ public class CameraLogic : MonoBehaviour
 
     public void TapingSound()
     {
+        float currentFraction = minigameManager.CompleteFraction;
+        int remainingCount = minigameManager.RemainingCount;
         if (currentFraction < 0.25f)
         {
             if (repairStage != 0)
@@ -275,6 +275,14 @@ public class CameraLogic : MonoBehaviour
                 soundManager.Crashing();
                 Debug.Log("wrong button");
             }
+        }
+
+        if (remainingCount == 1 && repairStage != 3)
+        {
+            currentObject.animationScript.PlayToEnd();
+            soundManager.Taping();
+            repairStage = 3;
+            return;
         }
 
         switch (repairStage)
@@ -311,7 +319,6 @@ public class CameraLogic : MonoBehaviour
     {
 
         currentObject.animationScript.NextAnimation();
-
         soundManager.Taping();
 
     }
