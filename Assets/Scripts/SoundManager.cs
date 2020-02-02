@@ -8,6 +8,8 @@ public class SoundManager : MonoBehaviour
     public AudioSource audioS;
     public AudioClip[] taping;
     public AudioClip[] crashing;
+    public AudioClip[] happyEnding;
+    public AudioClip[] badEnding;
 
     public void Taping()
     {
