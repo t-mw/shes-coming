@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Animation : MonoBehaviour
 {
-   
+
     public Animator anim;
 
     public bool onPlayback = false;
     public bool repaired = false;
     public GameObject tapedEffect;
+    public bool ignoreEvents = false;
 
     private void Start()
     {
@@ -32,14 +33,14 @@ public class Animation : MonoBehaviour
 
     public void SpeedToZero()
     {
-        if (!onPlayback && !repaired)
+        if (!ignoreEvents && !onPlayback && !repaired)
         {
-       
+
             anim.SetFloat("animSpeed", 0f);
             anim.enabled = false;
             Debug.Log("zero");
         }
-       
+
 
     }
 
@@ -60,7 +61,11 @@ public class Animation : MonoBehaviour
         }
     }
 
-
+    public void PlayToEnd()
+    {
+        ignoreEvents = true;
+        this.NextAnimation();
+    }
 
     public void PlaybackOff()
     {
@@ -77,13 +82,13 @@ public class Animation : MonoBehaviour
             anim.enabled = true;
             onPlayback = false;
             anim.Play("Animation", 0, 0f);
-            
+
         }
         else
         {
             anim.enabled = true;
             anim.SetFloat("animSpeed", 1f);
-           // anim.Play("Animation", 0, startTime);
+            // anim.Play("Animation", 0, startTime);
         }
 
     }
@@ -92,6 +97,7 @@ public class Animation : MonoBehaviour
     public void PlayBackAnimation()
     {
         Debug.Log("playback checker");
+        ignoreEvents = false;
         onPlayback = true;
         anim.enabled = true;
         anim.SetFloat("animSpeed", -2f);
