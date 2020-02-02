@@ -12,7 +12,7 @@
         Tags { "RenderQueue"="Transparent" "RenderType" = "Transparent" }
 
 			 Blend SrcAlpha OneMinusSrcAlpha
-			 Cull Off
+			 Cull back
 			 ZWrite Off
 
         Pass

@@ -9,6 +9,7 @@ public class Animation : MonoBehaviour
 
     public bool onPlayback = false;
     public bool repaired = false;
+    public GameObject tapedEffect;
 
     private void Start()
     {
@@ -22,6 +23,10 @@ public class Animation : MonoBehaviour
         repaired = true;
         anim.SetFloat("animSpeed", 1f);
         anim.enabled = true;
+        if (tapedEffect != null)
+        {
+            tapedEffect.SetActive(true);
+        }
     }
 
 

@@ -13,8 +13,8 @@
     {
         Tags { "RenderType"="Opaque" }
         LOD 200
-			Cull off
-
+		//Cull off
+			Cull back
 		Stencil {
 				Ref[_Masked]
 				Comp equal
