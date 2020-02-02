@@ -28,5 +28,7 @@ public class StartSceneSfx : MonoBehaviour
         int rand = Random.Range(0, PleasePlaySounds.Length);
         audioS.clip = PleasePlaySounds[rand];
         audioS.Play();
+        float rand2 = Random.Range(minTime, maxTime);
+        StartCoroutine(waitToPlaySfx(rand2));
     }
 }
