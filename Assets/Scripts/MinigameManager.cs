@@ -83,7 +83,7 @@ public class MinigameManager : MonoBehaviour
     public void BeginGame()
     {
         this.stage += 1;
-        int sequenceLength = 3 + 2 * (this.stage - 1);
+        int sequenceLength = 4 + 2 * (this.stage - 1);
 
         this.sequence.ResetIndex();
         this.sequence.Randomize(sequenceLength);
